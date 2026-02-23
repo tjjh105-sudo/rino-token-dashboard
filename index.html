@@ -25,7 +25,26 @@
 <div class="container py-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3">🌧️ Rino Token Dashboard</h1>
-        <span class="badge bg-secondary" id="last-update">Loading...</span>
+        
+        <!-- Pricing Info Badge -->
+        <div class="d-flex flex-column align-items-end">
+            <span class="badge bg-secondary mb-1" id="last-update">Loading...</span>
+            <div class="dropdown">
+                <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Pricing Info
+                </button>
+                <ul class="dropdown-menu p-3" style="width: 300px; font-size: 0.9rem;">
+                    <li><strong>Gemini 1.5 Pro:</strong></li>
+                    <li>Input: $3.50 / 1M</li>
+                    <li>Output: $10.50 / 1M</li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><strong>Gemini 3.0 Pro:</strong></li>
+                    <li>(Using 1.5 Pro rates for estimation)</li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><strong>Exchange Rate:</strong> 1 USD = 32.5 TWD</li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <!-- Key Metrics -->
@@ -99,6 +118,7 @@
                     <tr>
                         <th>Date</th>
                         <th>Time</th>
+                        <th>Model</th>
                         <th>Input</th>
                         <th>Output</th>
                         <th>Total</th>
@@ -113,26 +133,26 @@
     </div>
 </div>
 
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
     // Configuration
     const LOG_FILE_URL = 'token_usage_log.md';
     const PRICING = {
-        input_per_m: 3.50,
-        output_per_m: 10.50,
+        'gemini-1.5-pro': { input: 3.50, output: 10.50 },
+        'gemini-3.0-pro-preview': { input: 3.50, output: 10.50 }, // Assumed same as 1.5 Pro
+        'default': { input: 3.50, output: 10.50 },
         exchange_rate: 32.5
     };
 
     // Helper functions
     const parseNumber = (str) => parseInt(str.replace(/,/g, '') || 0);
     
-    const calculateCost = (input, output) => {
-        const usd = (input / 1_000_000 * PRICING.input_per_m) + (output / 1_000_000 * PRICING.output_per_m);
+    const calculateCost = (model, input, output) => {
+        const rates = PRICING[model] || PRICING['default'];
+        const usd = (input / 1_000_000 * rates.input) + (output / 1_000_000 * rates.output);
         return { usd, twd: usd * PRICING.exchange_rate };
-    };
-
-    const formatDate = (dateStr) => {
-        const d = new Date(dateStr);
-        return d.toLocaleDateString('zh-TW');
     };
 
     async function fetchData() {
@@ -151,8 +171,8 @@
     function parseMarkdownTable(markdown) {
         const lines = markdown.split('\n');
         const data = [];
-        // Regex for | Date | Time | Input | Output | Total | Note |
-        const regex = /\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*(.*?)\s*\|\s*([\d,]+)\s*\|\s*([\d,]+)\s*\|\s*([\d,]+)\s*\|\s*(.*?)\s*\|/;
+        // Updated Regex for | Date | Time | Model | Input | Output | Total | Note |
+        const regex = /\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*([\d,]+)\s*\|\s*([\d,]+)\s*\|\s*([\d,]+)\s*\|\s*(.*?)\s*\|/;
 
         lines.forEach(line => {
             const match = line.match(regex);
@@ -160,10 +180,11 @@
                 data.push({
                     date: match[1],
                     time: match[2],
-                    input: parseNumber(match[3]),
-                    output: parseNumber(match[4]),
-                    total: parseNumber(match[5]),
-                    note: match[6]
+                    model: match[3],
+                    input: parseNumber(match[4]),
+                    output: parseNumber(match[5]),
+                    total: parseNumber(match[6]),
+                    note: match[7]
                 });
             }
         });
@@ -186,7 +207,7 @@
         const dailyData = {};
 
         data.forEach(entry => {
-            const cost = calculateCost(entry.input, entry.output);
+            const cost = calculateCost(entry.model, entry.input, entry.output);
             
             // Daily Aggregation
             if (!dailyData[entry.date]) {
@@ -265,6 +286,7 @@
             tr.innerHTML = `
                 <td>${row.date}</td>
                 <td>${row.time}</td>
+                <td><span class="badge bg-light text-dark border">${row.model}</span></td>
                 <td>${row.input.toLocaleString()}</td>
                 <td>${row.output.toLocaleString()}</td>
                 <td>${row.total.toLocaleString()}</td>

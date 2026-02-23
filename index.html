@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rino Token Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .card-metric {
+            transition: transform 0.2s;
+        }
+        .card-metric:hover {
+            transform: translateY(-5px);
+        }
+        .cost-high { color: #dc3545; }
+        .cost-medium { color: #ffc107; }
+        .cost-low { color: #198754; }
+    </style>
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3">🌧️ Rino Token Dashboard</h1>
+        <span class="badge bg-secondary" id="last-update">Loading...</span>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card card-metric border-0 shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted text-uppercase mb-2" style="font-size: 0.8rem;">Today's Cost (TWD)</h6>
+                    <h2 class="fw-bold mb-0" id="today-cost">...</h2>
+                    <small class="text-muted" id="today-cost-usd">...</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-metric border-0 shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted text-uppercase mb-2" style="font-size: 0.8rem;">Monthly Total (TWD)</h6>
+                    <h2 class="fw-bold mb-0" id="month-cost">...</h2>
+                    <small class="text-muted" id="month-cost-usd">...</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-metric border-0 shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted text-uppercase mb-2" style="font-size: 0.8rem;">Today's Tokens</h6>
+                    <h2 class="fw-bold mb-0" id="today-tokens">...</h2>
+                    <small class="text-muted">Input + Output</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-metric border-0 shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted text-uppercase mb-2" style="font-size: 0.8rem;">Log Entries</h6>
+                    <h2 class="fw-bold mb-0" id="log-count">...</h2>
+                    <small class="text-muted">Total Records</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Daily Cost (TWD)</h5>
+                    <canvas id="dailyChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Token Distribution</h5>
+                    <canvas id="tokenPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Log Table -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white">
+            <h5 class="mb-0">Recent Activity</h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover mb-0" id="log-table">
+                <thead class="table-light">
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Input</th>
+                        <th>Output</th>
+                        <th>Total</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- JS will populate this -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Configuration
+    const LOG_FILE_URL = 'token_usage_log.md';
+    const PRICING = {
+        input_per_m: 3.50,
+        output_per_m: 10.50,
+        exchange_rate: 32.5
+    };
+
+    // Helper functions
+    const parseNumber = (str) => parseInt(str.replace(/,/g, '') || 0);
+    
+    const calculateCost = (input, output) => {
+        const usd = (input / 1_000_000 * PRICING.input_per_m) + (output / 1_000_000 * PRICING.output_per_m);
+        return { usd, twd: usd * PRICING.exchange_rate };
+    };
+
+    const formatDate = (dateStr) => {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString('zh-TW');
+    };
+
+    async function fetchData() {
+        try {
+            const response = await fetch(LOG_FILE_URL);
+            if (!response.ok) throw new Error('Failed to fetch log file');
+            const text = await response.text();
+            return parseMarkdownTable(text);
+        } catch (error) {
+            console.error(error);
+            alert('Error loading data. Make sure token_usage_log.md exists.');
+            return [];
+        }
+    }
+
+    function parseMarkdownTable(markdown) {
+        const lines = markdown.split('\n');
+        const data = [];
+        // Regex for | Date | Time | Input | Output | Total | Note |
+        const regex = /\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*(.*?)\s*\|\s*([\d,]+)\s*\|\s*([\d,]+)\s*\|\s*([\d,]+)\s*\|\s*(.*?)\s*\|/;
+
+        lines.forEach(line => {
+            const match = line.match(regex);
+            if (match) {
+                data.push({
+                    date: match[1],
+                    time: match[2],
+                    input: parseNumber(match[3]),
+                    output: parseNumber(match[4]),
+                    total: parseNumber(match[5]),
+                    note: match[6]
+                });
+            }
+        });
+        return data;
+    }
+
+    function renderDashboard(data) {
+        // --- 1. Process Data ---
+        const todayStr = new Date().toISOString().split('T')[0];
+        // For testing, if no data for today, use the last date in log
+        const effectiveToday = data.length > 0 ? data[data.length - 1].date : todayStr;
+
+        let todayCostUSD = 0;
+        let todayTokens = 0;
+        let monthCostUSD = 0;
+        let totalInput = 0;
+        let totalOutput = 0;
+        
+        // Group by Date for Chart
+        const dailyData = {};
+
+        data.forEach(entry => {
+            const cost = calculateCost(entry.input, entry.output);
+            
+            // Daily Aggregation
+            if (!dailyData[entry.date]) {
+                dailyData[entry.date] = { twd: 0, usd: 0 };
+            }
+            dailyData[entry.date].twd += cost.twd;
+            dailyData[entry.date].usd += cost.usd;
+
+            // Stats
+            if (entry.date === effectiveToday) {
+                todayCostUSD += cost.usd;
+                todayTokens += entry.total;
+            }
+            // Simple month check (same YYYY-MM)
+            if (entry.date.startsWith(effectiveToday.substring(0, 7))) {
+                monthCostUSD += cost.usd;
+            }
+
+            totalInput += entry.input;
+            totalOutput += entry.output;
+        });
+
+        // --- 2. Update Metrics ---
+        document.getElementById('today-cost').innerText = `NT$ ${Math.round(todayCostUSD * PRICING.exchange_rate)}`;
+        document.getElementById('today-cost-usd').innerText = `US$ ${todayCostUSD.toFixed(4)}`;
+        
+        document.getElementById('month-cost').innerText = `NT$ ${Math.round(monthCostUSD * PRICING.exchange_rate)}`;
+        document.getElementById('month-cost-usd').innerText = `US$ ${monthCostUSD.toFixed(2)}`;
+        
+        document.getElementById('today-tokens').innerText = (todayTokens / 1000).toFixed(1) + 'k';
+        document.getElementById('log-count').innerText = data.length;
+        document.getElementById('last-update').innerText = 'Updated: ' + new Date().toLocaleTimeString();
+
+        // --- 3. Render Charts ---
+        // Bar Chart
+        const dates = Object.keys(dailyData).sort();
+        const costs = dates.map(d => dailyData[d].twd);
+
+        new Chart(document.getElementById('dailyChart'), {
+            type: 'bar',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Cost (TWD)',
+                    data: costs,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        // Pie Chart
+        new Chart(document.getElementById('tokenPieChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Input (Read)', 'Output (Write)'],
+                datasets: [{
+                    data: [totalInput, totalOutput],
+                    backgroundColor: ['#ffcd56', '#4bc0c0']
+                }]
+            }
+        });
+
+        // --- 4. Render Table (Last 10 entries) ---
+        const tbody = document.querySelector('#log-table tbody');
+        // Reverse order to show newest first
+        const recentData = [...data].reverse().slice(0, 10);
+        
+        recentData.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${row.date}</td>
+                <td>${row.time}</td>
+                <td>${row.input.toLocaleString()}</td>
+                <td>${row.output.toLocaleString()}</td>
+                <td>${row.total.toLocaleString()}</td>
+                <td class="text-truncate" style="max-width: 200px;" title="${row.note}">${row.note}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // Init
+    fetchData().then(data => renderDashboard(data));
+
+</script>
+</body>
+</html>

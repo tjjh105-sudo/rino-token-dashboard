@@ -156,7 +156,8 @@
 
     async function fetchData() {
         try {
-            const response = await fetch(LOG_FILE_URL);
+            // Add cache-busting query param
+            const response = await fetch(LOG_FILE_URL + '?t=' + new Date().getTime());
             if (!response.ok) throw new Error('Failed to fetch log file');
             const text = await response.text();
             return parseMarkdownTable(text);

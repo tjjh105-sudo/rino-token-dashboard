@@ -43,3 +43,4 @@
 | 2026-02-24 | 07:46 PM | gemini-3.0-pro-preview | 0 | 0 | 0 | Session Start |
 | 2026-02-24 | 08:02 PM | google/gemini-3-pro-preview | 0 | 0 | 0 | Session Start (Bootstrap) |
 | 2026-02-25 | 05:47 AM | google/gemini-3-pro-preview | 131,000 | 2,900 | 133,900 | Calendar Insert & Token Query |
+| 2026-02-25 | 06:24 AM | google/gemini-3-pro-preview | 51,000 | 1,000 | 52,000 | Calendar Insert (All-Day) & Token Log |

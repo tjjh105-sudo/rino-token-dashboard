@@ -41,3 +41,4 @@
 | 2026-02-24 | 07:44 PM | gemini-3.0-pro-preview | 107,000      | 1,100         | 108,100      | Fix dashboard cache issue & log |
 | 2026-02-24 | 07:45 PM | gemini-3.0-pro-preview | 85,000       | 354           | 85,354       | Conversation Log (Push Check) |
 | 2026-02-24 | 07:46 PM | gemini-3.0-pro-preview | 0 | 0 | 0 | Session Start |
+| 2026-02-24 | 08:02 PM | google/gemini-3-pro-preview | 0 | 0 | 0 | Session Start (Bootstrap) |

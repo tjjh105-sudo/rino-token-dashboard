@@ -51,3 +51,4 @@
 | 2026-02-25 | 08:33 PM | google/gemini-3-pro-preview | 0 | 0 | 0 | Correction: Fixed timezone confusion (was logging PM as AM/midday) |
 | 2026-02-25 | 08:34 PM | google/gemini-3-pro-preview | 0 | 0 | 0 | Session Start |
 | 2026-02-26 | 07:14 AM | google/gemini-3-pro-preview | 46,000 | 298 | 46,298 | Maintenance Restart + Cron Check |
+| 2026-02-26 | 07:33 AM | google/gemini-3-pro-preview | 141,000 | 3,000 | 144,000 | Document Skills (System vs Local) & Update AGENTS.md |

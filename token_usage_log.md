@@ -59,3 +59,6 @@
 | 2026-02-26 | 08:32 PM | google/gemini-3-pro-preview | 9,500 | 45 | 9,545 | Model Switch Back |
 | 2026-02-26 | 08:32 PM | google/gemini-3-pro-preview | 0 | 0 | 0 | Final Log Update |
 | 2026-02-26 | 08:42 PM | google/gemini-3-pro-preview | 23,000 | 431 | 23,431 | Discussing Available Models |
+| 2026-02-26 | 08:45 PM | google/gemini-2.0-flash | 0 | 0 | 0 | Switch to 2.0 Flash (System Event) |
+| 2026-02-26 | 08:49 PM | google/gemini-1.5-pro | 0 | 0 | 0 | Switch to 1.5 Pro (System Event) |
+| 2026-02-26 | 08:56 PM | google/gemini-3-pro-preview | 145,000 | 1,200 | 146,200 | Switch to 3.0 Pro & Model Query |

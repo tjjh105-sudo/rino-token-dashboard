@@ -56,3 +56,4 @@
 | 2026-02-26 | 06:15 PM | google/gemini-3-pro-preview | 0 | 0 | 0 | Session Start |
 | 2026-02-26 | 08:31 PM | google/gemini-2.0-flash | 9,500 | 45 | 9,545 | Model Switch |
 | 2026-02-26 | 08:31 PM | google/gemini-2.0-flash | 0 | 0 | 0 | Dummy Entry to force token logging |
+| 2026-02-26 | 08:32 PM | google/gemini-3-pro-preview | 9,500 | 45 | 9,545 | Model Switch Back |

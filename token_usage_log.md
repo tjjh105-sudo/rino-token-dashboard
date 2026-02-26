@@ -69,3 +69,4 @@
 | 2026-02-26 | 09:41 PM | google/gemini-3-flash-preview | 238,000 | 4,700 | 242,700 | Create Calendar Event (Info Contest Judging Meeting) & Token Query |
 | 2026-02-26 | 09:44 PM | google/gemini-3-pro-preview | 0 | 0 | 0 | Session Start |
 | 2026-02-26 | 09:53 PM | gemini-3-flash-preview | 0 | 0 | 0 | Session Start |
+| 2026-02-26 | 09:56 PM | gemini-3-flash-preview | 52,000 | 242 | 52,242 | Update Pricing & Dashboard |

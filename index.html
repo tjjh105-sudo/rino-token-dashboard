@@ -39,6 +39,10 @@
                 <li><strong>Gemini 3.0 Pro:</strong></li>
                 <li>(Using 1.5 Pro rates for estimation)</li>
                 <li><hr class="dropdown-divider"></li>
+                <li><strong>Gemini 3 Flash:</strong></li>
+                <li>Input: $0.10 / 1M</li>
+                <li>Output: $0.40 / 1M</li>
+                <li><hr class="dropdown-divider"></li>
                 <li><strong>Exchange Rate:</strong> 1 USD = 32.5 TWD</li>
             </ul>
         </div>
@@ -140,7 +144,8 @@
     const LOG_FILE_URL = 'token_usage_log.md';
     const PRICING = {
         'gemini-1.5-pro': { input: 3.50, output: 10.50 },
-        'gemini-3.0-pro-preview': { input: 3.50, output: 10.50 }, // Assumed same as 1.5 Pro
+        'gemini-3.0-pro-preview': { input: 3.50, output: 10.50 },
+        'gemini-3-flash-preview': { input: 0.10, output: 0.40 },
         'default': { input: 3.50, output: 10.50 },
         exchange_rate: 32.5
     };

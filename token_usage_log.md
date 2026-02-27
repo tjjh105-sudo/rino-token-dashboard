@@ -99,3 +99,4 @@
 | 2026-02-27 | 07:22 PM | google/gemini-3-flash-preview | 0 | 0 | 0 | Session Bootstrap |
 | 2026-02-27 | 07:28 PM | google/gemini-3-flash-preview | 2500 | 1200 | 3700 | Move emails from Bai Binghong to label |
 | 2026-02-27 | 07:33 PM | google/gemini-3-flash-preview | 1500 | 800 | 2300 | Move emails containing "資訊應用競賽" to label |
+| 2026-02-28 | 07:18 AM | google/gemini-3-flash-preview | 61000 | 1200 | 62200 | Create "教育知識" label & update cron job |

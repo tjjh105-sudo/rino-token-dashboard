@@ -98,3 +98,4 @@
 | 2026-02-27 | 07:12 PM | google/gemini-3-flash-preview | 196000 | 1300 | 197300 | Reorganize squid label & delete old |
 | 2026-02-27 | 07:22 PM | google/gemini-3-flash-preview | 0 | 0 | 0 | Session Bootstrap |
 | 2026-02-27 | 07:28 PM | google/gemini-3-flash-preview | 2500 | 1200 | 3700 | Move emails from Bai Binghong to label |
+| 2026-02-27 | 07:33 PM | google/gemini-3-flash-preview | 1500 | 800 | 2300 | Move emails containing "資訊應用競賽" to label |

@@ -91,3 +91,5 @@
 | 2026-02-27 | 11:16 AM | gemini-3-flash-preview | 0 | 0 | 0 | Session Start |
 | 2026-02-27 | 02:32 PM | gemini-3-flash-preview | 21,000 | 318 | 21,318 | Spawn subagent for Anue unsubscribe & delete |
 | 2026-02-27 | 05:05 PM | gemini-3-flash-preview | 40,000 | 1,500 | 41,500 | Deleted 600+ Anue emails & triggered unsubscribe |
+| 2026-02-27 | 06:09 PM | gemini-3-flash-preview | 152,000 | 1,000 | 153,000 | Cleanup vocus emails |
+| 2026-02-27 | 06:12 PM | gemini-3-flash-preview | 152,000 | 2,000 | 154,000 | Deleted 3 vocus emails & triggered unsubscribe |

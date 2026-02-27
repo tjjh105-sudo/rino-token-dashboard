@@ -89,3 +89,4 @@
 | 2026-02-27 | 11:07 AM | gemini-3-flash-preview | 203,000 | 949 | 203,949 | Gmail API Connection Success |
 | 2026-02-27 | 11:15 AM | gemini-3-flash-preview | 417,000 | 1,800 | 418,800 | Gmail Cleanup & Skill Saved |
 | 2026-02-27 | 11:16 AM | gemini-3-flash-preview | 0 | 0 | 0 | Session Start |
+| 2026-02-27 | 02:32 PM | gemini-3-flash-preview | 21,000 | 318 | 21,318 | Spawn subagent for Anue unsubscribe & delete |

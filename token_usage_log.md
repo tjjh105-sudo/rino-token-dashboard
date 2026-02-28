@@ -106,3 +106,4 @@
 | 2026-02-28 | 10:20 AM | google/gemini-3-flash-preview | 25000 | 350 | 25350 | Store Notion Token |
 | 2026-02-28 | 10:30 AM | google/gemini-3-flash-preview | 27000 | 148 | 27148 | Test Notion Database Connection |
 | 2026-02-28 | 10:32 AM | google/gemini-3-flash-preview | 83000 | 789 | 83789 | Add Notion Task: D2 Data |
+| 2026-02-28 | 10:34 AM | google/gemini-3-flash-preview | 117000 | 851 | 117851 | Add Notion Task: 仰望課程 (In Progress) |

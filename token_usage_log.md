@@ -103,3 +103,4 @@
 | 2026-02-28 | 07:33 AM | google/gemini-3-flash-preview | 326000 | 1300 | 327300 | Check cron schedule & report status |
 | 2026-02-28 | 08:15 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | Session Start |
 | 2026-02-28 | 09:37 AM | google/gemini-3-flash-preview | 93000 | 1700 | 94700 | Gmail Labelling Task |
+| 2026-02-28 | 10:20 AM | google/gemini-3-flash-preview | 25000 | 350 | 25350 | Store Notion Token |

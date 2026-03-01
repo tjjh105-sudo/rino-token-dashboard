@@ -95,7 +95,13 @@
         <div class="col-md-8">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Daily Cost (TWD)</h5>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0" id="chart-title">Daily Cost (TWD)</h5>
+                        <select class="form-select form-select-sm" style="width: auto;" id="chart-view-selector">
+                            <option value="daily">Daily View</option>
+                            <option value="monthly">Monthly View</option>
+                        </select>
+                    </div>
                     <canvas id="dailyChart"></canvas>
                 </div>
             </div>
@@ -210,6 +216,7 @@
         
         // Group by Date for Chart
         const dailyData = {};
+        const monthlyData = {};
 
         data.forEach(entry => {
             const cost = calculateCost(entry.model, entry.input, entry.output);
@@ -220,6 +227,14 @@
             }
             dailyData[entry.date].twd += cost.twd;
             dailyData[entry.date].usd += cost.usd;
+
+            // Monthly Aggregation
+            const monthKey = entry.date.substring(0, 7); // YYYY-MM
+            if (!monthlyData[monthKey]) {
+                monthlyData[monthKey] = { twd: 0, usd: 0 };
+            }
+            monthlyData[monthKey].twd += cost.twd;
+            monthlyData[monthKey].usd += cost.usd;
 
             // Stats
             if (entry.date === effectiveToday) {
@@ -247,26 +262,43 @@
         document.getElementById('last-update').innerText = 'Updated: ' + new Date().toLocaleTimeString();
 
         // --- 3. Render Charts ---
-        // Bar Chart
-        const dates = Object.keys(dailyData).sort();
-        const costs = dates.map(d => dailyData[d].twd);
+        let currentChart = null;
 
-        new Chart(document.getElementById('dailyChart'), {
-            type: 'bar',
-            data: {
-                labels: dates,
-                datasets: [{
-                    label: 'Cost (TWD)',
-                    data: costs,
-                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: { y: { beginAtZero: true } }
-            }
+        function updateMainChart(view) {
+            if (currentChart) currentChart.destroy();
+            
+            const isDaily = view === 'daily';
+            const sourceData = isDaily ? dailyData : monthlyData;
+            const labels = Object.keys(sourceData).sort();
+            const values = labels.map(l => sourceData[l].twd);
+
+            document.getElementById('chart-title').innerText = isDaily ? 'Daily Cost (TWD)' : 'Monthly Cost (TWD)';
+
+            currentChart = new Chart(document.getElementById('dailyChart'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: isDaily ? 'Daily Cost (TWD)' : 'Monthly Cost (TWD)',
+                        data: values,
+                        backgroundColor: isDaily ? 'rgba(54, 162, 235, 0.6)' : 'rgba(153, 102, 255, 0.6)',
+                        borderColor: isDaily ? 'rgba(54, 162, 235, 1)' : 'rgba(153, 102, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+
+        // Initial chart
+        updateMainChart('daily');
+
+        // Event listener for view selector
+        document.getElementById('chart-view-selector').addEventListener('change', (e) => {
+            updateMainChart(e.target.value);
         });
 
         // Pie Chart

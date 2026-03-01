@@ -1,138 +1,158 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rino Weather Dashboard</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { background-color: #f8f9fa; }
-        .metric-card { border: none; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); }
-        .chart-container { position: relative; height: 300px; }
-        .rain-chart-container { position: relative; height: 100px; }
+        .card-metric {
+            transition: transform 0.2s;
+        }
+        .card-metric:hover {
+            transform: translateY(-5px);
+        }
     </style>
 </head>
-<body>
-    <div class="container py-4">
-        <h1 class="h3 mb-4">🌧️ Rino Weather Dashboard (Taichung)</h1>
-        
-        <!-- Key Metrics: Horizontal Layout -->
-        <div class="row g-3 mb-4">
-            <div class="col-md-4">
-                <div class="card metric-card text-center p-3">
-                    <h6 class="text-muted small text-uppercase">現在氣溫</h6>
-                    <h2 class="mb-0" id="current-temp">--°C</h2>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card metric-card text-center p-3">
-                    <h6 class="text-muted small text-uppercase">體感溫度</h6>
-                    <h2 class="mb-0" id="feels-like">--°C</h2>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card metric-card text-center p-3">
-                    <h6 class="text-muted small text-uppercase">當前濕度</h6>
-                    <h2 class="mb-0" id="humidity">--%</h2>
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3">🌧️ Rino Weather Dashboard</h1>
+        <span class="badge bg-secondary" id="last-update">Loading...</span>
+    </div>
+
+    <!-- Key Metrics: Horizontal Layout -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card card-metric border-0 shadow-sm text-center">
+                <div class="card-body">
+                    <h6 class="text-muted text-uppercase mb-2" style="font-size: 0.8rem;">Latest Avg Temp</h6>
+                    <h2 class="fw-bold mb-0" id="avg-temp">...</h2>
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="card card-metric border-0 shadow-sm text-center">
+                <div class="card-body">
+                    <h6 class="text-muted text-uppercase mb-2" style="font-size: 0.8rem;">Latest Rain Prob</h6>
+                    <h2 class="fw-bold mb-0" id="rain-prob">...</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-metric border-0 shadow-sm text-center">
+                <div class="card-body">
+                    <h6 class="text-muted text-uppercase mb-2" style="font-size: 0.8rem;">Total Records</h6>
+                    <h2 class="fw-bold mb-0" id="total-records">...</h2>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <!-- Charts Section -->
-        <div class="row">
-            <div class="col-12">
-                <div class="card metric-card p-3 mb-4">
-                    <h5 class="card-title">今日氣溫趨勢 (Hourly)</h5>
-                    <div class="chart-container">
+    <!-- Charts -->
+    <div class="row g-4 mb-4">
+        <!-- Avg Temp Chart -->
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Average Temperature (°C)</h5>
+                    <div style="height: 300px;">
                         <canvas id="tempChart"></canvas>
                     </div>
                 </div>
             </div>
-            <div class="col-12">
-                <div class="card metric-card p-3">
-                    <h5 class="card-title">今日降雨機率 (%)</h5>
-                    <div class="rain-chart-container">
+        </div>
+        <!-- Rain Probability Chart (1/3 height) -->
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Rain Probability (%)</h5>
+                    <div style="height: 100px;">
                         <canvas id="rainChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        async function fetchWeather() {
-            try {
-                const response = await fetch('https://wttr.in/Taichung?format=j1');
-                const data = await response.json();
-                updateDashboard(data);
-            } catch (error) {
-                console.error('Weather fetch error:', error);
+<script>
+    async function fetchWeatherData() {
+        try {
+            const response = await fetch('https://wttr.in/Taichung?format=j1');
+            const data = await response.json();
+            renderDashboard(data);
+        } catch (error) {
+            console.error('Error fetching weather:', error);
+        }
+    }
+
+    function renderDashboard(data) {
+        const hourly = data.weather[0].hourly;
+        const labels = hourly.map(h => {
+            let t = parseInt(h.time) / 100;
+            return `${t}:00`;
+        });
+        const temps = hourly.map(h => parseInt(h.tempC));
+        const rains = hourly.map(h => parseInt(h.chanceofrain));
+
+        // Update Metrics
+        const currentAvgTemp = data.weather[0].avgtempC;
+        const currentRainProb = hourly[0].chanceofrain; // Simplification for "latest"
+
+        document.getElementById('avg-temp').innerText = `${currentAvgTemp} °C`;
+        document.getElementById('rain-prob').innerText = `${currentRainProb} %`;
+        document.getElementById('total-records').innerText = data.weather.length;
+        document.getElementById('last-update').innerText = 'Updated: ' + new Date().toLocaleTimeString();
+
+        // Temp Chart
+        new Chart(document.getElementById('tempChart'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Avg Temp',
+                    data: temps,
+                    borderColor: '#ff6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
             }
-        }
+        });
 
-        function updateDashboard(data) {
-            const current = data.current_condition[0];
-            document.getElementById('current-temp').innerText = `${current.temp_C}°C`;
-            document.getElementById('feels-like').innerText = `${current.FeelsLikeC}°C`;
-            document.getElementById('humidity').innerText = `${current.humidity}%`;
-
-            const hourly = data.weather[0].hourly;
-            const labels = hourly.map(h => {
-                let time = parseInt(h.time) / 100;
-                return `${time}:00`;
-            });
-            const temps = hourly.map(h => parseInt(h.tempC));
-            const rains = hourly.map(h => parseInt(h.chanceofrain));
-
-            // Temperature Chart
-            new Chart(document.getElementById('tempChart'), {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: '氣溫 (°C)',
-                        data: temps,
-                        borderColor: '#ff6384',
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: { y: { beginAtZero: false } }
+        // Rain Chart (Bar)
+        new Chart(document.getElementById('rainChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Rain Prob',
+                    data: rains,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, max: 100 }
                 }
-            });
+            }
+        });
+    }
 
-            // Rain Chance Chart (Bar)
-            new Chart(document.getElementById('rainChart'), {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: '降雨機率 (%)',
-                        data: rains,
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: { 
-                        y: { 
-                            beginAtZero: true,
-                            max: 100
-                        } 
-                    }
-                }
-            });
-        }
-
-        fetchWeather();
-    </script>
+    fetchWeatherData();
+</script>
 </body>
 </html>

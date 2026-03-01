@@ -59,7 +59,7 @@
         <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">Average Temperature (°C)</h5>
+                    <h5 class="card-title">Daily Average Temperature (°C)</h5>
                     <div style="height: 300px;">
                         <canvas id="tempChart"></canvas>
                     </div>
@@ -70,7 +70,7 @@
         <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">Rain Probability (%)</h5>
+                    <h5 class="card-title">Daily Rain Probability (%)</h5>
                     <div style="height: 100px;">
                         <canvas id="rainChart"></canvas>
                     </div>
@@ -81,61 +81,74 @@
 </div>
 
 <script>
-    async function fetchWeatherData() {
+    async function fetchLocalLog() {
         try {
-            const response = await fetch('https://wttr.in/Taichung?format=j1');
-            const data = await response.json();
+            // Fetch the weather-log.md relative to this file
+            const response = await fetch('weather-log.md?t=' + new Date().getTime());
+            const text = await response.text();
+            const data = parseLog(text);
             renderDashboard(data);
         } catch (error) {
-            console.error('Error fetching weather:', error);
+            console.error('Error fetching log:', error);
         }
     }
 
-    function renderDashboard(data) {
-        const hourly = data.weather[0].hourly;
-        const labels = hourly.map(h => {
-            let t = parseInt(h.time) / 100;
-            return `${t}:00`;
+    function parseLog(md) {
+        const lines = md.split('\n');
+        const data = [];
+        const regex = /\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|/;
+        lines.forEach(line => {
+            const m = line.match(regex);
+            if (m) {
+                data.push({
+                    date: m[1],
+                    avgTemp: parseFloat(m[2]),
+                    rainProb: parseFloat(m[3])
+                });
+            }
         });
-        const temps = hourly.map(h => parseInt(h.tempC));
-        const rains = hourly.map(h => parseInt(h.chanceofrain));
+        return data;
+    }
 
-        // Update Metrics
-        const currentAvgTemp = data.weather[0].avgtempC;
-        const currentRainProb = hourly[0].chanceofrain; // Simplification for "latest"
+    function renderDashboard(data) {
+        if (data.length === 0) return;
 
-        document.getElementById('avg-temp').innerText = `${currentAvgTemp} °C`;
-        document.getElementById('rain-prob').innerText = `${currentRainProb} %`;
-        document.getElementById('total-records').innerText = data.weather.length;
-        document.getElementById('last-update').innerText = 'Updated: ' + new Date().toLocaleTimeString();
+        const latest = data[data.length - 1];
+        document.getElementById('avg-temp').innerText = `${latest.avgTemp} °C`;
+        document.getElementById('rain-prob').innerText = `${latest.rainProb} %`;
+        document.getElementById('total-records').innerText = data.length;
+        document.getElementById('last-update').innerText = 'Last Logged: ' + latest.date;
 
-        // Temp Chart
+        const labels = data.map(d => d.date);
+        const temps = data.map(d => d.avgTemp);
+        const rains = data.map(d => d.rainProb);
+
         new Chart(document.getElementById('tempChart'), {
             type: 'line',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Avg Temp',
+                    label: 'Avg Temp (°C)',
                     data: temps,
                     borderColor: '#ff6384',
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     fill: true,
-                    tension: 0.4
+                    tension: 0.1
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: false } }
             }
         });
 
-        // Rain Chart (Bar)
         new Chart(document.getElementById('rainChart'), {
             type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Rain Prob',
+                    label: 'Rain Prob (%)',
                     data: rains,
                     backgroundColor: 'rgba(54, 162, 235, 0.6)',
                     borderColor: 'rgba(54, 162, 235, 1)',
@@ -145,14 +158,12 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                scales: {
-                    y: { beginAtZero: true, max: 100 }
-                }
+                scales: { y: { beginAtZero: true, max: 100 } }
             }
         });
     }
 
-    fetchWeatherData();
+    fetchLocalLog();
 </script>
 </body>
 </html>

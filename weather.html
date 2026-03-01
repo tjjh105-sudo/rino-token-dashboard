@@ -66,12 +66,12 @@
                 </div>
             </div>
         </div>
-        <!-- Rain Probability Chart (1/3 height) -->
+        <!-- Rain Probability Chart (Slightly taller than 1/3, with 10-unit grid) -->
         <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Daily Rain Probability (%)</h5>
-                    <div style="height: 100px;">
+                    <div style="height: 150px;">
                         <canvas id="rainChart"></canvas>
                     </div>
                 </div>
@@ -83,7 +83,6 @@
 <script>
     async function fetchLocalLog() {
         try {
-            // Fetch the weather-log.md relative to this file
             const response = await fetch('weather-log.md?t=' + new Date().getTime());
             const text = await response.text();
             const data = parseLog(text);
@@ -123,6 +122,7 @@
         const temps = data.map(d => d.avgTemp);
         const rains = data.map(d => d.rainProb);
 
+        // Temp Chart
         new Chart(document.getElementById('tempChart'), {
             type: 'line',
             data: {
@@ -139,10 +139,20 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                scales: { y: { beginAtZero: false } }
+                layout: {
+                    padding: { left: 10, right: 10 }
+                },
+                scales: { 
+                    x: {
+                        // Offset: true ensures the points are centered over the grid category, same as bars
+                        offset: true 
+                    },
+                    y: { beginAtZero: false } 
+                }
             }
         });
 
+        // Rain Chart
         new Chart(document.getElementById('rainChart'), {
             type: 'bar',
             data: {
@@ -158,7 +168,15 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                scales: { y: { beginAtZero: true, max: 100 } }
+                scales: { 
+                    y: { 
+                        beginAtZero: true, 
+                        max: 100,
+                        ticks: {
+                            stepSize: 10 // Grid every 10 units
+                        }
+                    } 
+                }
             }
         });
     }

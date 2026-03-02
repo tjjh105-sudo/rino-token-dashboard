@@ -74,8 +74,8 @@
                 </div>
             </div>
         </div>
-        <!-- Rain Prob Chart -->
-        <div class="col-md-6">
+        <!-- Rain Prob Chart (Full width) -->
+        <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Daily Rain Probability (%)</h5>
@@ -85,8 +85,8 @@
                 </div>
             </div>
         </div>
-        <!-- Humidity Chart -->
-        <div class="col-md-6">
+        <!-- Humidity Chart (Full width) -->
+        <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Daily Humidity (%)</h5>
@@ -114,7 +114,6 @@
     function parseLog(md) {
         const lines = md.split('\n');
         const data = [];
-        // regex to handle columns: | Date | Avg | Rain | Hum | Max | Min | Status |
         const regex = /\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|/;
         lines.forEach(line => {
             const m = line.match(regex);

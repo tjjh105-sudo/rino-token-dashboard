@@ -26,53 +26,72 @@
     </div>
 
     <!-- Key Metrics: Horizontal Layout -->
-    <div class="row g-4 mb-4">
-        <div class="col-md-4">
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
             <div class="card card-metric border-0 shadow-sm text-center">
-                <div class="card-body">
-                    <h6 class="text-muted text-uppercase mb-2" style="font-size: 0.8rem;">Latest Avg Temp</h6>
-                    <h2 class="fw-bold mb-0" id="avg-temp">...</h2>
+                <div class="card-body py-3">
+                    <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem;">Latest Avg Temp</h6>
+                    <h3 class="fw-bold mb-0" id="avg-temp">...</h3>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card card-metric border-0 shadow-sm text-center">
-                <div class="card-body">
-                    <h6 class="text-muted text-uppercase mb-2" style="font-size: 0.8rem;">Latest Rain Prob</h6>
-                    <h2 class="fw-bold mb-0" id="rain-prob">...</h2>
+                <div class="card-body py-3">
+                    <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem;">Latest Rain Prob</h6>
+                    <h3 class="fw-bold mb-0" id="rain-prob">...</h3>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card card-metric border-0 shadow-sm text-center">
-                <div class="card-body">
-                    <h6 class="text-muted text-uppercase mb-2" style="font-size: 0.8rem;">Total Records</h6>
-                    <h2 class="fw-bold mb-0" id="total-records">...</h2>
+                <div class="card-body py-3">
+                    <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem;">Latest Humidity</h6>
+                    <h3 class="fw-bold mb-0" id="humidity">...</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-metric border-0 shadow-sm text-center">
+                <div class="card-body py-3">
+                    <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem;">Total Records</h6>
+                    <h3 class="fw-bold mb-0" id="total-records">...</h3>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Charts -->
-    <div class="row g-4 mb-4">
+    <div class="row g-4">
         <!-- Avg Temp Chart -->
         <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Daily Average Temperature (°C)</h5>
-                    <div style="height: 300px;">
+                    <div style="height: 250px;">
                         <canvas id="tempChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Rain Probability Chart (Slightly taller than 1/3, with 10-unit grid) -->
-        <div class="col-12">
+        <!-- Rain Prob Chart -->
+        <div class="col-md-6">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">Daily Rain Probability (%)</h5>
                     <div style="height: 150px;">
                         <canvas id="rainChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Humidity Chart -->
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Daily Humidity (%)</h5>
+                    <div style="height: 150px;">
+                        <canvas id="humidityChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -95,14 +114,16 @@
     function parseLog(md) {
         const lines = md.split('\n');
         const data = [];
-        const regex = /\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|/;
+        // regex to handle columns: | Date | Avg | Rain | Hum | Max | Min | Status |
+        const regex = /\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|/;
         lines.forEach(line => {
             const m = line.match(regex);
             if (m) {
                 data.push({
                     date: m[1],
                     avgTemp: parseFloat(m[2]),
-                    rainProb: parseFloat(m[3])
+                    rainProb: parseFloat(m[3]),
+                    humidity: parseFloat(m[4])
                 });
             }
         });
@@ -115,12 +136,22 @@
         const latest = data[data.length - 1];
         document.getElementById('avg-temp').innerText = `${latest.avgTemp} °C`;
         document.getElementById('rain-prob').innerText = `${latest.rainProb} %`;
+        document.getElementById('humidity').innerText = `${latest.humidity} %`;
         document.getElementById('total-records').innerText = data.length;
         document.getElementById('last-update').innerText = 'Last Logged: ' + latest.date;
 
         const labels = data.map(d => d.date);
         const temps = data.map(d => d.avgTemp);
         const rains = data.map(d => d.rainProb);
+        const hums = data.map(d => d.humidity);
+
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { offset: true }
+            }
+        };
 
         // Temp Chart
         new Chart(document.getElementById('tempChart'), {
@@ -136,20 +167,7 @@
                     tension: 0.1
                 }]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                layout: {
-                    padding: { left: 10, right: 10 }
-                },
-                scales: { 
-                    x: {
-                        // Offset: true ensures the points are centered over the grid category, same as bars
-                        offset: true 
-                    },
-                    y: { beginAtZero: false } 
-                }
-            }
+            options: commonOptions
         });
 
         // Rain Chart
@@ -166,16 +184,32 @@
                 }]
             },
             options: {
-                responsive: true,
-                maintainAspectRatio: false,
+                ...commonOptions,
                 scales: { 
-                    y: { 
-                        beginAtZero: true, 
-                        max: 100,
-                        ticks: {
-                            stepSize: 10 // Grid every 10 units
-                        }
-                    } 
+                    ...commonOptions.scales,
+                    y: { beginAtZero: true, max: 100, ticks: { stepSize: 10 } } 
+                }
+            }
+        });
+
+        // Humidity Chart
+        new Chart(document.getElementById('humidityChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Humidity (%)',
+                    data: hums,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                ...commonOptions,
+                scales: { 
+                    ...commonOptions.scales,
+                    y: { beginAtZero: true, max: 100, ticks: { stepSize: 10 } } 
                 }
             }
         });

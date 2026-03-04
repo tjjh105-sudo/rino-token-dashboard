@@ -27,34 +27,50 @@
 
     <!-- Key Metrics: Horizontal Layout -->
     <div class="row g-3 mb-4">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="card card-metric border-0 shadow-sm text-center">
                 <div class="card-body py-3">
-                    <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem;">Latest Avg Temp</h6>
+                    <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem;">Max Temp</h6>
+                    <h3 class="fw-bold mb-0 text-danger" id="max-temp">...</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card card-metric border-0 shadow-sm text-center">
+                <div class="card-body py-3">
+                    <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem;">Min Temp</h6>
+                    <h3 class="fw-bold mb-0 text-success" id="min-temp">...</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card card-metric border-0 shadow-sm text-center">
+                <div class="card-body py-3">
+                    <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem;">Avg Temp</h6>
                     <h3 class="fw-bold mb-0" id="avg-temp">...</h3>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="card card-metric border-0 shadow-sm text-center">
                 <div class="card-body py-3">
-                    <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem;">Latest Rain Prob</h6>
+                    <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem;">Rain Prob</h6>
                     <h3 class="fw-bold mb-0" id="rain-prob">...</h3>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="card card-metric border-0 shadow-sm text-center">
                 <div class="card-body py-3">
-                    <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem;">Latest Humidity</h6>
+                    <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem;">Humidity</h6>
                     <h3 class="fw-bold mb-0" id="humidity">...</h3>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="card card-metric border-0 shadow-sm text-center">
                 <div class="card-body py-3">
-                    <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem;">Total Records</h6>
+                    <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem;">Records</h6>
                     <h3 class="fw-bold mb-0" id="total-records">...</h3>
                 </div>
             </div>
@@ -63,12 +79,12 @@
 
     <!-- Charts -->
     <div class="row g-4">
-        <!-- Avg Temp Chart -->
+        <!-- Temp Chart -->
         <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">Daily Average Temperature (°C)</h5>
-                    <div style="height: 250px;">
+                    <h5 class="card-title">Daily Temperature Range (°C)</h5>
+                    <div style="height: 300px;">
                         <canvas id="tempChart"></canvas>
                     </div>
                 </div>
@@ -114,7 +130,8 @@
     function parseLog(md) {
         const lines = md.split('\n');
         const data = [];
-        const regex = /\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|/;
+        // Match: | Date | Avg | Rain | Hum | Max | Min | Status |
+        const regex = /\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|/;
         lines.forEach(line => {
             const m = line.match(regex);
             if (m) {
@@ -122,7 +139,9 @@
                     date: m[1],
                     avgTemp: parseFloat(m[2]),
                     rainProb: parseFloat(m[3]),
-                    humidity: parseFloat(m[4])
+                    humidity: parseFloat(m[4]),
+                    maxTemp: parseFloat(m[5]),
+                    minTemp: parseFloat(m[6])
                 });
             }
         });
@@ -133,6 +152,8 @@
         if (data.length === 0) return;
 
         const latest = data[data.length - 1];
+        document.getElementById('max-temp').innerText = `${latest.maxTemp} °C`;
+        document.getElementById('min-temp').innerText = `${latest.minTemp} °C`;
         document.getElementById('avg-temp').innerText = `${latest.avgTemp} °C`;
         document.getElementById('rain-prob').innerText = `${latest.rainProb} %`;
         document.getElementById('humidity').innerText = `${latest.humidity} %`;
@@ -140,7 +161,9 @@
         document.getElementById('last-update').innerText = 'Last Logged: ' + latest.date;
 
         const labels = data.map(d => d.date);
-        const temps = data.map(d => d.avgTemp);
+        const avgTemps = data.map(d => d.avgTemp);
+        const maxTemps = data.map(d => d.maxTemp);
+        const minTemps = data.map(d => d.minTemp);
         const rains = data.map(d => d.rainProb);
         const hums = data.map(d => d.humidity);
 
@@ -157,14 +180,35 @@
             type: 'line',
             data: {
                 labels: labels,
-                datasets: [{
-                    label: 'Avg Temp (°C)',
-                    data: temps,
-                    borderColor: '#ff6384',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    fill: true,
-                    tension: 0.1
-                }]
+                datasets: [
+                    {
+                        label: 'Max Temp (°C)',
+                        data: maxTemps,
+                        borderColor: '#dc3545',
+                        backgroundColor: '#dc3545',
+                        pointStyle: 'circle',
+                        pointRadius: 6,
+                        showLine: false
+                    },
+                    {
+                        label: 'Min Temp (°C)',
+                        data: minTemps,
+                        borderColor: '#198754',
+                        backgroundColor: '#198754',
+                        pointStyle: 'circle',
+                        pointRadius: 6,
+                        showLine: false
+                    },
+                    {
+                        label: 'Avg Temp (°C)',
+                        data: avgTemps,
+                        borderColor: '#ff6384',
+                        backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                        fill: false,
+                        tension: 0.3,
+                        borderDash: [5, 5]
+                    }
+                ]
             },
             options: commonOptions
         });

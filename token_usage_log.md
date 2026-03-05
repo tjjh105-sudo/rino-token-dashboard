@@ -154,3 +154,4 @@
 | 2026-03-05 | 05:48 AM | google/gemini-3-flash-preview | 40000 | 207 | 40207 | turn: greet & remember protocol |
 | 2026-03-05 | 06:04 AM | google/gemini-3-flash-preview | 42000 | 240 | 42240 | turn: weather check inquiry |
 | 2026-03-05 | 08:58 AM | google/gemini-3-flash-preview | 19000 | 346 | 19346 | turn: add notion task |
+| 2026-03-05 | 01:46 PM | google/gemini-3-flash-preview | 148000 | 905 | 148905 | turn: add google calendar event |

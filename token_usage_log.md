@@ -158,3 +158,4 @@
 | 2026-03-06 | 06:54 AM | google/gemini-3-flash-preview | 57000 | 33 | 57033 | turn: confirm persistent token logging |
 | 2026-03-06 | 08:19 AM | google/gemini-3-flash-preview | 30000 | 305 | 30305 | turn: remove morning weather cron |
 | 2026-03-06 | 09:44 AM | google/gemini-3-flash-preview | 160000 | 321 | 160321 | turn: add scout award calendar event |
+| 2026-03-07 | 06:33 AM | google/gemini-3-flash-preview | 70000 | 500 | 70500 | turn: troubleshoot calendar auth issue |

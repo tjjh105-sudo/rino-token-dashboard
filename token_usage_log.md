@@ -161,3 +161,4 @@
 | 2026-03-07 | 06:33 AM | google/gemini-3-flash-preview | 70000 | 500 | 70500 | turn: troubleshoot calendar auth issue |
 | 2026-03-07 | 06:33 AM | google/gemini-3-flash-preview | 181000 | 1600 | 182600 | turn: provide google calendar auth link |
 | 2026-03-07 | 06:35 AM | google/gemini-3-flash-preview | 116000 | 981 | 116981 | turn: finalize google calendar re-auth |
+| 2026-03-09 | 12:03 PM | google/gemini-3-flash-preview | 43000 | 400 | 43400 | turn: weekly memory cleanup |

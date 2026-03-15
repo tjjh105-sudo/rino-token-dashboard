@@ -182,20 +182,42 @@
     function parseMarkdownTable(markdown) {
         const lines = markdown.split('\n');
         const data = [];
-        // Updated Regex for | Date | Time | Model | Input | Output | Total | Note |
-        const regex = /\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*([\d,]+)\s*\|\s*([\d,]+)\s*\|\s*([\d,]+)\s*\|\s*(.*?)\s*\|/;
+        // Support both old format (6 columns) and new format (7 columns with Model)
+        const regexNew = /\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([^|]*?)\s*\|\s*([^|]*?)\s*\|\s*([\d,]*)\s*\|\s*([\d,]*)\s*\|\s*([\d,]*)\s*\|\s*([^|]*?)\s*\|/;
+        const regexOld = /\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([^|]*?)\s*\|\s*([\d,]*)\s*\|\s*([\d,]*)\s*\|\s*([\d,]*)\s*\|\s*([^|]*?)\s*\|/;
 
         lines.forEach(line => {
-            const match = line.match(regex);
-            if (match) {
+            // Try new format first
+            let match = line.match(regexNew);
+            if (match && !line.includes('---')) {
+                // If the "Model" column actually looks like a number, it might be the old format
+                // or a row with empty model. But let's check the number of pipes.
+                const pipeCount = (line.match(/\|/g) || []).length;
+                if (pipeCount >= 8) { // 7 columns = 8 pipes
+                    data.push({
+                        date: match[1].trim(),
+                        time: match[2].trim(),
+                        model: match[3].trim(),
+                        input: parseNumber(match[4]),
+                        output: parseNumber(match[5]),
+                        total: parseNumber(match[6]),
+                        note: match[7].trim()
+                    });
+                    return;
+                }
+            }
+            
+            // Try old format
+            match = line.match(regexOld);
+            if (match && !line.includes('---')) {
                 data.push({
-                    date: match[1],
-                    time: match[2],
-                    model: match[3],
-                    input: parseNumber(match[4]),
-                    output: parseNumber(match[5]),
-                    total: parseNumber(match[6]),
-                    note: match[7]
+                    date: match[1].trim(),
+                    time: match[2].trim(),
+                    model: 'gemini-3.0-pro-preview', // Default for old logs
+                    input: parseNumber(match[3]),
+                    output: parseNumber(match[4]),
+                    total: parseNumber(match[5]),
+                    note: match[6].trim()
                 });
             }
         });

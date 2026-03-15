@@ -32,7 +32,7 @@
                 Pricing Info
             </button>
             <ul class="dropdown-menu p-3" style="width: 300px; font-size: 0.9rem;">
-                <li><strong>Gemini 3.1 / 2.5 Pro:</strong></li>
+                <li><strong>Gemini 3.1 Pro / 2.5 Pro:</strong></li>
                 <li>Input: $1.25 / 1M (&le;128k)</li>
                 <li>Input: $2.50 / 1M (&gt;128k)</li>
                 <li>Output: $5.00 / 1M (&le;128k)</li>
@@ -165,7 +165,7 @@
         'gemini-2.5-pro': { input: [1.25, 2.50], output: [5.00, 10.00] },
         'gemini-3-flash': { input: [0.075, 0.15], output: [0.30, 0.60] },
         'gemini-3-flash-lite': { input: [0.05, 0.05], output: [0.20, 0.20] },
-        'default': { input: [1.25, 2.50], output: [5.00, 10.00] },
+        'default': { input: [0.075, 0.15], output: [0.30, 0.60] }, // Default to Flash for safety
         exchange_rate: 32.5
     };
 

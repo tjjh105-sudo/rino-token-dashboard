@@ -48,6 +48,13 @@
                 <li>Input: $0.05 / 1M</li>
                 <li>Output: $0.20 / 1M</li>
                 <li><hr class="dropdown-divider"></li>
+                <li><strong>Claude 4.5 Opus:</strong></li>
+                <li>$5.00 (In) / $25.00 (Out)</li>
+                <li><strong>Claude 4.5 Sonnet:</strong></li>
+                <li>$3.00 (In) / $15.00 (Out)</li>
+                <li><strong>Claude 4.5 Haiku:</strong></li>
+                <li>$1.00 (In) / $5.00 (Out)</li>
+                <li><hr class="dropdown-divider"></li>
                 <li><strong>Exchange Rate:</strong> 1 USD = 32.5 TWD</li>
             </ul>
         </div>
@@ -160,12 +167,20 @@
     const LOG_FILE_URL = 'token_usage_log.md';
     const PRICING = {
         // Rates per 1M tokens in USD (as of March 2026)
-        // Format: [Standard Rate (<=128k), Long Context Rate (>128k)]
+        // Format: [Standard Rate, Long Context Rate/Cache Support]
+        // Google Gemini
         'gemini-3.1-pro': { input: [1.25, 2.50], output: [5.00, 10.00] },
         'gemini-2.5-pro': { input: [1.25, 2.50], output: [5.00, 10.00] },
         'gemini-3-flash': { input: [0.075, 0.15], output: [0.30, 0.60] },
         'gemini-3-flash-lite': { input: [0.05, 0.05], output: [0.20, 0.20] },
-        'default': { input: [0.075, 0.15], output: [0.30, 0.60] }, // Default to Flash for safety
+        
+        // Anthropic Claude
+        'claude-4.5-opus': { input: [5.00, 5.00], output: [25.00, 25.00] },
+        'claude-4.5-sonnet': { input: [3.00, 3.00], output: [15.00, 15.00] },
+        'claude-4.5-haiku': { input: [1.00, 1.00], output: [5.00, 5.00] },
+        'claude-3.7-sonnet': { input: [3.00, 3.00], output: [15.00, 15.00] },
+
+        'default': { input: [0.075, 0.15], output: [0.30, 0.60] },
         exchange_rate: 32.5
     };
 
@@ -178,18 +193,31 @@
     
     const calculateCost = (model, input, output) => {
         let modelKey = 'default';
+        let isGemini = false;
+        
         if (model) {
             const m = model.toLowerCase();
-            if (m.includes('flash-lite')) modelKey = 'gemini-3-flash-lite';
-            else if (m.includes('flash')) modelKey = 'gemini-3-flash';
-            else if (m.includes('3.1-pro') || m.includes('3.1 pro')) modelKey = 'gemini-3.1-pro';
-            else if (m.includes('2.5-pro') || m.includes('2.5 pro')) modelKey = 'gemini-2.5-pro';
-            else if (m.includes('pro')) modelKey = 'gemini-3.1-pro'; // Default pro to latest
+            // Claude Logic
+            if (m.includes('claude')) {
+                if (m.includes('opus')) modelKey = 'claude-4.5-opus';
+                else if (m.includes('haiku')) modelKey = 'claude-4.5-haiku';
+                else if (m.includes('3.7')) modelKey = 'claude-3.7-sonnet';
+                else modelKey = 'claude-4.5-sonnet';
+            } 
+            // Gemini Logic
+            else {
+                isGemini = true;
+                if (m.includes('flash-lite')) modelKey = 'gemini-3-flash-lite';
+                else if (m.includes('flash')) modelKey = 'gemini-3-flash';
+                else if (m.includes('3.1-pro') || m.includes('3.1 pro')) modelKey = 'gemini-3.1-pro';
+                else if (m.includes('2.5-pro') || m.includes('2.5 pro')) modelKey = 'gemini-2.5-pro';
+                else if (m.includes('pro')) modelKey = 'gemini-3.1-pro';
+            }
         }
         
         const rates = PRICING[modelKey] || PRICING['default'];
-        const isLongContext = input > 128000;
-        const rateIdx = isLongContext ? 1 : 0;
+        // Only Gemini has long context surcharges (>128k)
+        const rateIdx = (isGemini && input > 128000) ? 1 : 0;
         
         const usd = (input / 1_000_000 * rates.input[rateIdx]) + (output / 1_000_000 * rates.output[rateIdx]);
         return { usd, twd: usd * PRICING.exchange_rate };

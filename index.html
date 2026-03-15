@@ -32,16 +32,21 @@
                 Pricing Info
             </button>
             <ul class="dropdown-menu p-3" style="width: 300px; font-size: 0.9rem;">
-                <li><strong>Gemini 1.5 Pro:</strong></li>
-                <li>Input: $3.50 / 1M</li>
-                <li>Output: $10.50 / 1M</li>
-                <li><hr class="dropdown-divider"></li>
-                <li><strong>Gemini 3.0 Pro:</strong></li>
-                <li>(Using 1.5 Pro rates for estimation)</li>
+                <li><strong>Gemini 3.1 / 2.5 Pro:</strong></li>
+                <li>Input: $1.25 / 1M (&le;128k)</li>
+                <li>Input: $2.50 / 1M (&gt;128k)</li>
+                <li>Output: $5.00 / 1M (&le;128k)</li>
+                <li>Output: $10.00 / 1M (&gt;128k)</li>
                 <li><hr class="dropdown-divider"></li>
                 <li><strong>Gemini 3 Flash:</strong></li>
-                <li>Input: $0.10 / 1M</li>
-                <li>Output: $0.40 / 1M</li>
+                <li>Input: $0.075 / 1M (&le;128k)</li>
+                <li>Input: $0.15 / 1M (&gt;128k)</li>
+                <li>Output: $0.30 / 1M (&le;128k)</li>
+                <li>Output: $0.60 / 1M (&gt;128k)</li>
+                <li><hr class="dropdown-divider"></li>
+                <li><strong>Gemini 3 Flash-Lite:</strong></li>
+                <li>Input: $0.05 / 1M</li>
+                <li>Output: $0.20 / 1M</li>
                 <li><hr class="dropdown-divider"></li>
                 <li><strong>Exchange Rate:</strong> 1 USD = 32.5 TWD</li>
             </ul>
@@ -154,10 +159,13 @@
     // Configuration
     const LOG_FILE_URL = 'token_usage_log.md';
     const PRICING = {
-        'gemini-1.5-pro': { input: 3.50, output: 10.50 },
-        'gemini-3.0-pro-preview': { input: 3.50, output: 10.50 },
-        'gemini-3-flash-preview': { input: 0.10, output: 0.40 },
-        'default': { input: 3.50, output: 10.50 },
+        // Rates per 1M tokens in USD (as of March 2026)
+        // Format: [Standard Rate (<=128k), Long Context Rate (>128k)]
+        'gemini-3.1-pro': { input: [1.25, 2.50], output: [5.00, 10.00] },
+        'gemini-2.5-pro': { input: [1.25, 2.50], output: [5.00, 10.00] },
+        'gemini-3-flash': { input: [0.075, 0.15], output: [0.30, 0.60] },
+        'gemini-3-flash-lite': { input: [0.05, 0.05], output: [0.20, 0.20] },
+        'default': { input: [1.25, 2.50], output: [5.00, 10.00] },
         exchange_rate: 32.5
     };
 
@@ -172,11 +180,18 @@
         let modelKey = 'default';
         if (model) {
             const m = model.toLowerCase();
-            if (m.includes('flash')) modelKey = 'gemini-3-flash-preview';
-            else if (m.includes('pro')) modelKey = 'gemini-1.5-pro';
+            if (m.includes('flash-lite')) modelKey = 'gemini-3-flash-lite';
+            else if (m.includes('flash')) modelKey = 'gemini-3-flash';
+            else if (m.includes('3.1-pro') || m.includes('3.1 pro')) modelKey = 'gemini-3.1-pro';
+            else if (m.includes('2.5-pro') || m.includes('2.5 pro')) modelKey = 'gemini-2.5-pro';
+            else if (m.includes('pro')) modelKey = 'gemini-3.1-pro'; // Default pro to latest
         }
+        
         const rates = PRICING[modelKey] || PRICING['default'];
-        const usd = (input / 1_000_000 * rates.input) + (output / 1_000_000 * rates.output);
+        const isLongContext = input > 128000;
+        const rateIdx = isLongContext ? 1 : 0;
+        
+        const usd = (input / 1_000_000 * rates.input[rateIdx]) + (output / 1_000_000 * rates.output[rateIdx]);
         return { usd, twd: usd * PRICING.exchange_rate };
     };
 

@@ -26,37 +26,48 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3">🌧️ Rino Token Dashboard</h1>
         
-        <!-- Pricing Info Badge - Centered on mobile, aligned with title -->
+        <!-- Pricing Info Badge -->
         <div class="dropdown mx-auto">
-            <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                 Pricing Info
             </button>
-            <ul class="dropdown-menu p-3" style="width: 300px; font-size: 0.9rem;">
-                <li><strong>Gemini 3.1 Pro / 2.5 Pro:</strong></li>
-                <li>Input: $1.25 / 1M (&le;128k)</li>
-                <li>Input: $2.50 / 1M (&gt;128k)</li>
-                <li>Output: $5.00 / 1M (&le;128k)</li>
-                <li>Output: $10.00 / 1M (&gt;128k)</li>
-                <li><hr class="dropdown-divider"></li>
-                <li><strong>Gemini 3 Flash:</strong></li>
-                <li>Input: $0.075 / 1M (&le;128k)</li>
-                <li>Input: $0.15 / 1M (&gt;128k)</li>
-                <li>Output: $0.30 / 1M (&le;128k)</li>
-                <li>Output: $0.60 / 1M (&gt;128k)</li>
-                <li><hr class="dropdown-divider"></li>
-                <li><strong>Gemini 3 Flash-Lite:</strong></li>
-                <li>Input: $0.05 / 1M</li>
-                <li>Output: $0.20 / 1M</li>
-                <li><hr class="dropdown-divider"></li>
-                <li><strong>Claude 4.5 Opus:</strong></li>
-                <li>$5.00 (In) / $25.00 (Out)</li>
-                <li><strong>Claude 4.5 Sonnet:</strong></li>
-                <li>$3.00 (In) / $15.00 (Out)</li>
-                <li><strong>Claude 4.5 Haiku:</strong></li>
-                <li>$1.00 (In) / $5.00 (Out)</li>
-                <li><hr class="dropdown-divider"></li>
-                <li><strong>Exchange Rate:</strong> 1 USD = 32.5 TWD</li>
-            </ul>
+            <div class="dropdown-menu p-3 shadow" style="min-width: 320px; font-size: 0.85rem;">
+                <ul class="nav nav-tabs mb-2" id="pricingTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active py-1 px-2" id="google-tab" data-bs-toggle="tab" data-bs-target="#google-pane" type="button" role="tab">Google</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link py-1 px-2" id="anthropic-tab" data-bs-toggle="tab" data-bs-target="#anthropic-pane" type="button" role="tab">Claude</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link py-1 px-2" id="openai-tab" data-bs-toggle="tab" data-bs-target="#openai-pane" type="button" role="tab">OpenAI</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pricingTabContent">
+                    <div class="tab-pane fade show active" id="google-pane" role="tabpanel">
+                        <div class="mb-1"><strong>Gemini 3.1 / 2.5 Pro:</strong></div>
+                        <div class="text-muted small mb-1">In: $1.25 (&le;128k) / $2.50 (&gt;128k)</div>
+                        <div class="text-muted small mb-2">Out: $5.00 (&le;128k) / $10.00 (&gt;128k)</div>
+                        <div class="mb-1"><strong>Gemini 3 Flash:</strong></div>
+                        <div class="text-muted small mb-1">In: $0.075 (&le;128k) / $0.15 (&gt;128k)</div>
+                        <div class="text-muted small">Out: $0.30 (&le;128k) / $0.60 (&gt;128k)</div>
+                    </div>
+                    <div class="tab-pane fade" id="anthropic-pane" role="tabpanel">
+                        <div class="mb-1"><strong>Claude 4.5 Opus:</strong> $5 / $25</div>
+                        <div class="mb-1"><strong>Claude 4.5 Sonnet:</strong> $3 / $15</div>
+                        <div class="mb-2"><strong>Claude 4.5 Haiku:</strong> $1 / $5</div>
+                        <div class="small text-info">Prompt caching saves up to 90%!</div>
+                    </div>
+                    <div class="tab-pane fade" id="openai-pane" role="tabpanel">
+                        <div class="mb-1"><strong>o1 / o3:</strong> $15 / $60</div>
+                        <div class="mb-1"><strong>GPT-4o:</strong> $2.50 / $10.00</div>
+                        <div class="mb-1"><strong>o1-mini / o3-mini:</strong> $1.10 / $4.40</div>
+                        <div class="mb-1"><strong>GPT-4o-mini:</strong> $0.15 / $0.60</div>
+                    </div>
+                </div>
+                <hr class="my-2">
+                <div class="text-center small text-muted">1 USD = 32.5 TWD</div>
+            </div>
         </div>
 
         <span class="badge bg-secondary" id="last-update">Loading...</span>
@@ -180,6 +191,12 @@
         'claude-4.5-haiku': { input: [1.00, 1.00], output: [5.00, 5.00] },
         'claude-3.7-sonnet': { input: [3.00, 3.00], output: [15.00, 15.00] },
 
+        // OpenAI
+        'openai-o1': { input: [15.00, 15.00], output: [60.00, 60.00] },
+        'openai-gpt-4o': { input: [2.50, 2.50], output: [10.00, 10.00] },
+        'openai-o1-mini': { input: [1.10, 1.10], output: [4.40, 4.40] },
+        'openai-gpt-4o-mini': { input: [0.15, 0.15], output: [0.60, 0.60] },
+
         'default': { input: [0.075, 0.15], output: [0.30, 0.60] },
         exchange_rate: 32.5
     };
@@ -204,6 +221,17 @@
                 else if (m.includes('3.7')) modelKey = 'claude-3.7-sonnet';
                 else modelKey = 'claude-4.5-sonnet';
             } 
+            // OpenAI Logic
+            else if (m.includes('gpt') || m.startsWith('o1') || m.startsWith('o3')) {
+                if (m.includes('mini')) {
+                    if (m.includes('gpt-4o')) modelKey = 'openai-gpt-4o-mini';
+                    else modelKey = 'openai-o1-mini';
+                } else if (m.includes('gpt-4o')) {
+                    modelKey = 'openai-gpt-4o';
+                } else {
+                    modelKey = 'openai-o1';
+                }
+            }
             // Gemini Logic
             else {
                 isGemini = true;

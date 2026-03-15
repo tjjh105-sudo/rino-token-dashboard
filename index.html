@@ -157,10 +157,20 @@
     };
 
     // Helper functions
-    const parseNumber = (str) => parseInt(str.replace(/,/g, '') || 0);
+    const parseNumber = (str) => {
+        if (!str) return 0;
+        const clean = str.replace(/,/g, '').trim();
+        return clean === '' ? 0 : parseInt(clean);
+    };
     
     const calculateCost = (model, input, output) => {
-        const rates = PRICING[model] || PRICING['default'];
+        let modelKey = 'default';
+        if (model) {
+            const m = model.toLowerCase();
+            if (m.includes('flash')) modelKey = 'gemini-3-flash-preview';
+            else if (m.includes('pro')) modelKey = 'gemini-1.5-pro';
+        }
+        const rates = PRICING[modelKey] || PRICING['default'];
         const usd = (input / 1_000_000 * rates.input) + (output / 1_000_000 * rates.output);
         return { usd, twd: usd * PRICING.exchange_rate };
     };
@@ -183,17 +193,18 @@
         const lines = markdown.split('\n');
         const data = [];
         // Support both old format (6 columns) and new format (7 columns with Model)
+        // More lenient regex to handle empty columns or variations
         const regexNew = /\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([^|]*?)\s*\|\s*([^|]*?)\s*\|\s*([\d,]*)\s*\|\s*([\d,]*)\s*\|\s*([\d,]*)\s*\|\s*([^|]*?)\s*\|/;
         const regexOld = /\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([^|]*?)\s*\|\s*([\d,]*)\s*\|\s*([\d,]*)\s*\|\s*([\d,]*)\s*\|\s*([^|]*?)\s*\|/;
 
         lines.forEach(line => {
-            // Try new format first
-            let match = line.match(regexNew);
-            if (match && !line.includes('---')) {
-                // If the "Model" column actually looks like a number, it might be the old format
-                // or a row with empty model. But let's check the number of pipes.
-                const pipeCount = (line.match(/\|/g) || []).length;
-                if (pipeCount >= 8) { // 7 columns = 8 pipes
+            if (line.includes('---') || !line.includes('|')) return;
+
+            const pipeCount = (line.match(/\|/g) || []).length;
+            
+            if (pipeCount >= 8) { // 7 columns or more
+                const match = line.match(regexNew);
+                if (match) {
                     data.push({
                         date: match[1].trim(),
                         time: match[2].trim(),
@@ -203,22 +214,20 @@
                         total: parseNumber(match[6]),
                         note: match[7].trim()
                     });
-                    return;
                 }
-            }
-            
-            // Try old format
-            match = line.match(regexOld);
-            if (match && !line.includes('---')) {
-                data.push({
-                    date: match[1].trim(),
-                    time: match[2].trim(),
-                    model: 'gemini-3.0-pro-preview', // Default for old logs
-                    input: parseNumber(match[3]),
-                    output: parseNumber(match[4]),
-                    total: parseNumber(match[5]),
-                    note: match[6].trim()
-                });
+            } else if (pipeCount >= 7) { // 6 columns
+                const match = line.match(regexOld);
+                if (match) {
+                    data.push({
+                        date: match[1].trim(),
+                        time: match[2].trim(),
+                        model: 'gemini-3.0-pro-preview',
+                        input: parseNumber(match[3]),
+                        output: parseNumber(match[4]),
+                        total: parseNumber(match[5]),
+                        note: match[6].trim()
+                    });
+                }
             }
         });
         return data;

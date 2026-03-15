@@ -201,3 +201,4 @@
 | 2026-03-15 | 09:08 PM | google/gemini-3-flash-preview | - | - | - | add buzi01.pdf to buzi/newstu |
 | 2026-03-15 | 09:23 PM | google/gemini-3-flash-preview | - | - | - | add BUZI.png to images |
 | 2026-03-15 | 09:42 PM | google/gemini-3-flash-preview | - | - | - | force push update to gift website |
+| 2026-03-15 | 09:54 PM | google/gemini-3-flash-preview | - | - | - | fix GitHub Pages for newstu (correct flag) |

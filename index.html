@@ -97,10 +97,15 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="card-title mb-0" id="chart-title">Daily Cost (TWD)</h5>
-                        <select class="form-select form-select-sm" style="width: auto;" id="chart-view-selector">
-                            <option value="daily">Daily View</option>
-                            <option value="monthly">Monthly View</option>
-                        </select>
+                        <div class="d-flex gap-2">
+                            <select class="form-select form-select-sm" style="width: auto;" id="month-filter">
+                                <option value="all">All Months</option>
+                            </select>
+                            <select class="form-select form-select-sm" style="width: auto;" id="chart-view-selector">
+                                <option value="daily">Daily View</option>
+                                <option value="monthly">Monthly View</option>
+                            </select>
+                        </div>
                     </div>
                     <canvas id="dailyChart"></canvas>
                 </div>
@@ -299,19 +304,31 @@
             if (currentChart) currentChart.destroy();
             
             const isDaily = view === 'daily';
-            const sourceData = isDaily ? dailyData : monthlyData;
-            const labels = Object.keys(sourceData).sort();
-            const values = labels.map(l => sourceData[l].twd);
+            const selectedMonth = document.getElementById('month-filter').value;
+            
+            let filteredLabels = [];
+            let filteredValues = [];
+
+            if (isDaily) {
+                const allDays = Object.keys(dailyData).sort();
+                filteredLabels = selectedMonth === 'all' 
+                    ? allDays 
+                    : allDays.filter(d => d.startsWith(selectedMonth));
+                filteredValues = filteredLabels.map(l => dailyData[l].twd);
+            } else {
+                filteredLabels = Object.keys(monthlyData).sort();
+                filteredValues = filteredLabels.map(l => monthlyData[l].twd);
+            }
 
             document.getElementById('chart-title').innerText = isDaily ? 'Daily Cost (TWD)' : 'Monthly Cost (TWD)';
 
             currentChart = new Chart(document.getElementById('dailyChart'), {
                 type: 'bar',
                 data: {
-                    labels: labels,
+                    labels: filteredLabels,
                     datasets: [{
                         label: isDaily ? 'Daily Cost (TWD)' : 'Monthly Cost (TWD)',
-                        data: values,
+                        data: filteredValues,
                         backgroundColor: isDaily ? 'rgba(54, 162, 235, 0.6)' : 'rgba(153, 102, 255, 0.6)',
                         borderColor: isDaily ? 'rgba(54, 162, 235, 1)' : 'rgba(153, 102, 255, 1)',
                         borderWidth: 1
@@ -319,13 +336,41 @@
                 },
                 options: {
                     responsive: true,
-                    scales: { y: { beginAtZero: true } }
+                    scales: { 
+                        y: { 
+                            beginAtZero: true,
+                            ticks: {
+                                // Dynamic precision based on values
+                                callback: function(value) {
+                                    return 'NT$ ' + value.toLocaleString(undefined, {
+                                        minimumFractionDigits: value < 1 ? 2 : 0,
+                                        maximumFractionDigits: 2
+                                    });
+                                }
+                            }
+                        } 
+                    }
                 }
             });
         }
 
         // Initial chart
         updateMainChart('daily');
+
+        // Populate Month Filter
+        const monthFilter = document.getElementById('month-filter');
+        const availableMonths = Object.keys(monthlyData).sort().reverse();
+        availableMonths.forEach(m => {
+            const option = document.createElement('option');
+            option.value = m;
+            option.innerText = m;
+            monthFilter.appendChild(option);
+        });
+
+        // Event listener for month filter
+        monthFilter.addEventListener('change', () => {
+            updateMainChart(document.getElementById('chart-view-selector').value);
+        });
 
         // Event listener for view selector
         document.getElementById('chart-view-selector').addEventListener('change', (e) => {

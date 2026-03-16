@@ -122,7 +122,6 @@
                         <h5 class="card-title mb-0" id="chart-title">Daily Cost (TWD)</h5>
                         <div class="d-flex gap-2">
                             <select class="form-select form-select-sm" style="width: auto;" id="month-filter">
-                                <option value="all">All Months</option>
                             </select>
                             <select class="form-select form-select-sm" style="width: auto;" id="chart-view-selector">
                                 <option value="daily">Daily View</option>
@@ -425,18 +424,34 @@
             });
         }
 
-        // Initial chart
-        updateMainChart('daily');
-
         // Populate Month Filter
         const monthFilter = document.getElementById('month-filter');
         const availableMonths = Object.keys(monthlyData).sort().reverse();
+        
+        // Find current month (YYYY-MM)
+        const currentMonth = todayStr.substring(0, 7);
+        let currentMonthExists = false;
+
         availableMonths.forEach(m => {
             const option = document.createElement('option');
             option.value = m;
             option.innerText = m;
+            if (m === currentMonth) {
+                option.selected = true;
+                currentMonthExists = true;
+            }
             monthFilter.appendChild(option);
         });
+
+        // Add "All Months" at the end
+        const allOption = document.createElement('option');
+        allOption.value = 'all';
+        allOption.innerText = 'All Months';
+        if (!currentMonthExists) allOption.selected = true;
+        monthFilter.appendChild(allOption);
+
+        // Initial chart with current filter
+        updateMainChart('daily');
 
         // Event listener for month filter
         monthFilter.addEventListener('change', () => {

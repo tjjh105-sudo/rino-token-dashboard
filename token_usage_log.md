@@ -230,3 +230,4 @@
 | 2026-03-23 | 03:43 PM | google/gemini-3-flash-preview | 64000 | 33 | 64033 | 登記 5/6 edu-Buffet |
 | 2026-03-24 | 05:30 AM | google/gemini-3-flash-preview | 33000 | 203 | 33203 | Session Start (Daily Startup) |
 | 2026-03-24 | 10:15 AM | google/gemini-3-flash-preview | 25000 | 450 | 25450 | Restore Token Dashboard |
+| 2026-03-24 | 11:46 AM | google/gemini-3-flash-preview | 37000 | 236 | 37236 | 貓咪盃培訓改期至 3/31 |

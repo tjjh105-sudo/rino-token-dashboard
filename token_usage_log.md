@@ -240,3 +240,4 @@
 | 2026-03-25 | 06:47 AM | google/gemini-3-flash-preview | 228000 | 15000 | 243000 | workflow fix & memory update |
 | 2026-03-25 | 15:31 PM | google/gemini-3-flash-preview | 54000 | 386 | 54386 | Add Calendar Event: 3/25 AI研習 |
 2026-03-26 05:30:25 | Cron Run | In: 66,000 | Out: 541 | Total: 66,541
+| 2026-03-26 | 08:40 AM | google/gemini-3-flash-preview | 57000 | 91 | 57091 | Add Calendar Event: 4/29 特教研習 |

@@ -253,3 +253,4 @@
 | 2026-03-27 | 10:50 AM | google/gemini-3-flash-preview | 145000 | 465 | 145465 | Explain Token Usage |
 | 2026-03-27 | 10:51 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | session start |
 | 2026-03-27 | 03:33 PM | google/gemini-3-flash-preview | 56000 | 246 | 56246 | Add Calendar Event |
+| 2026-03-27 | 07:35 PM | google/gemini-3-flash-preview | 75000 | 417 | 75417 | TTS Reply |

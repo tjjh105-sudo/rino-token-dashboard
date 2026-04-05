@@ -285,3 +285,4 @@
 | 2026-04-05 | 07:05 PM | google/gemini-3-flash-preview | 113000 | 800 | 113800 | Weekly Memory Cleanup |
 2026-04-06 05:33:14 | agent:main | In: 48000 | Out: 580 | Total: 48580
 2026-04-06 05:33:45 | agent:main | In: 48500 | Out: 700 | Total: 49200
+| 2026-04-06 | 05:33 AM | google/gemini-3-flash-preview | 33000 | 300 | 33300 | Model Switch & Morning Start |

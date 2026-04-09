@@ -294,3 +294,4 @@
 | 2026-04-08 | 10:25 AM | google/gemini-3-flash-preview | 45500 | 500 | 46000 | Add Multi-day Calendar Event |
 2026-04-09 05:30:00 | In: 51000 | Out: 506 | Total: 51506 | Cron: Daily Backup & Run Reminder
 | 2026-04-09 | 05:30 AM | google/gemini-3-flash-preview | 43000 | 330 | 43330 | Model Switch & Morning Start |
+| 2026-04-09 | 10:45 AM | google/gemini-3-flash-preview | 47000 | 450 | 47450 | Add研習 Calendar Event |

@@ -300,3 +300,5 @@
 | 2026-04-10 | 05:30 AM | gemini-3-flash-preview | 77,000 | 514 | 77,514 | Daily Bootstrap (Cron) |
 | 2026-04-10 | 05:30 AM | gemini-3-flash-preview | 77,000 | 514 | 77,514 | Daily Bootstrap (Cron) |
 | 2026-04-10 | 05:30 AM | google/gemini-3-flash-preview | 52000 | 350 | 52350 | Model Switch & Morning Start |
+2026-04-11 05:30:00 | In: 58000 | Out: 604 | Total: 58604
+2026-04-11 05:30:00 | In: 58000 | Out: 604 | Total: 58604

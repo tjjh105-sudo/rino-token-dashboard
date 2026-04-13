@@ -316,3 +316,4 @@
 | 2026-04-13 | 02:45 PM | google/gemini-3-flash-preview | 79000 | 450 | 79450 | Add 坪林國小轉銜會議 |
 | 2026-04-13 | 03:30 PM | google/gemini-3-flash-preview | 82500 | 450 | 82950 | Add 教評會 Calendar Event |
 | 2026-04-14 | 05:30 AM | google/gemini-3-flash-preview | 67000 | 674 | 67674 | Daily Bootstrap & Routine |
+| 2026-04-14 | 05:30 AM | google/gemini-3-flash-preview | 71000 | 350 | 71350 | Model Switch & Morning Start |

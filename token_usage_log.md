@@ -343,3 +343,4 @@
 2026-04-21 05:30:00 - Session: cron:7fd7a980 | In: 67,000 | Out: 528 | Total: 67,528
 2026-04-21 05:30:00 - Session: cron:7fd7a980 | In: 67,000 | Out: 528 | Total: 67,528
 2026-04-21 05:30:00 - Session: cron:7fd7a980 | In: 67000 | Out: 528 | Total: 67528
+| 2026-04-21 | 05:30 AM | google/gemini-3-flash-preview | 106000 | 350 | 106350 | Model Switch & Morning Start |

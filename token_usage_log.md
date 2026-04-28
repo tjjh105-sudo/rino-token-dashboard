@@ -356,3 +356,4 @@
 | 2026-04-28 | 11:35 AM | google/gemini-3-flash-preview | 175000 | 450 | 175450 | Add 線上轉銜會議 |
 | 2026-04-28 | 01:25 PM | google/gemini-3-flash-preview | 176000 | 450 | 176450 | Add 大坑國小線上轉銜會議 |
 | 2026-04-28 | 12:49 PM | gemini-3-flash-preview | 0 | 0 | 0 | Session Start (Bootstrap) |
+| 2026-04-29 | 05:30 AM | gemini-3-flash-preview | 15000 | 256 | 15256 | Model Switch (Morning Update) |

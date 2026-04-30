@@ -312,7 +312,7 @@
         // --- 1. Process Data ---
         const todayStr = new Date().toISOString().split('T')[0];
         // For testing, if no data for today, use the last date in log
-        const effectiveToday = data.length > 0 ? data[data.length - 1].date : todayStr;
+        const effectiveToday = todayStr;
 
         let todayCostUSD = 0;
         let todayTokens = 0;

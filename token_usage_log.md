@@ -371,3 +371,4 @@
 | 2026-05-07 | 05:11 PM | gemini-3-flash-preview | 83000 | 33 | 83033 | Add Calendar Event (115年第1次工作會議) |
 | 2026-05-08 | 05:30 AM | gemini-3-flash-preview | 43000 | 215 | 43215 | Model Switch (Morning Update) |
 | 2026-05-08 | 02:53 PM | gemini-3-flash-preview | 86000 | 44 | 86044 | Add Calendar Event (仰望科技課程) |
+| 2026-05-09 | 05:30 AM | gemini-3-flash-preview | 44000 | 205 | 44205 | Model Switch (Morning Update) |

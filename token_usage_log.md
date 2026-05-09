@@ -372,3 +372,5 @@
 | 2026-05-08 | 05:30 AM | gemini-3-flash-preview | 43000 | 215 | 43215 | Model Switch (Morning Update) |
 | 2026-05-08 | 02:53 PM | gemini-3-flash-preview | 86000 | 44 | 86044 | Add Calendar Event (仰望科技課程) |
 | 2026-05-09 | 05:30 AM | gemini-3-flash-preview | 44000 | 205 | 44205 | Model Switch (Morning Update) |
+| 2026-05-09 | 12:57 PM | gemini-3-flash-preview | 91000 | 33 | 91033 | Add Calendar Event (數位學習推辦同仁評選) |
+| 2026-05-09 | 12:58 PM | gemini-3-flash-preview | 45000 | 81 | 45081 | Add Calendar Event (數位學習推辦同仁評選 - 更正) |

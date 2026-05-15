@@ -385,3 +385,4 @@
 | 2026-05-14 | 07:01 AM | gemini-3-flash-preview | 31000 | 103 | 31103 | Session Start (Post-Restart) |
 | 2026-05-15 | 05:35 AM | gemini-3-flash-preview | 36700 | 265 | 36965 | Morning Update & Restart |
 | 2026-05-15 | 07:22 AM | gemini-3-flash-preview | 35000 | 104 | 35104 | Session Start (Post-Restart) |
+| 2026-05-15 | 12:56 PM | gemini-3-flash-preview | 145000 | 774 | 145774 | Gateway Force Restart (Fix Scheduler) |

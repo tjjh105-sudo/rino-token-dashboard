@@ -390,3 +390,5 @@
 | 2026-05-16 | 05:40 AM | gemini-3-flash-preview | 50000 | 82 | 50082 | Session Start (Post-Restart Recovery) |
 | 2026-05-17 | 05:35 AM | gemini-3-flash-preview | 36700 | 244 | 36944 | Morning Update & Restart |
 | 2026-05-17 | 10:36 AM | gemini-3-flash-preview | 54000 | 94 | 54094 | Session Start (Post-Restart Recovery) |
+| 2026-05-18 | 05:35 AM | gemini-3-flash-preview | 83800 | 393 | 84193 | Morning Update & Restart |
+| 2026-05-18 | 07:33 AM | gemini-3-flash-preview | 70000 | 120 | 70120 | Session Start (Post-Restart Verification) |

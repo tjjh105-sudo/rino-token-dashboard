@@ -407,3 +407,4 @@
 | 2026-05-24 | 05:30 AM | gemini-3-flash-preview | 27500 | 206 | 27706 | Morning Update & Backup |
 | 2026-05-25 | 05:25 AM | Gemini 3 Flash | 0 | 0 | 0 | log: token usage (session start) |
 | 2026-05-25 | 04:31 PM | Gemini 3 Flash | 16000 | 258 | 16258 | add: Hiteach會議 to calendar |
+| 2026-05-25 | 08:58 PM | Gemini 3 Flash | 101000 | 418 | 101418 | add: 教育部輔導季會 to calendar (OCR) |

@@ -309,9 +309,15 @@
     }
 
     function renderDashboard(data) {
-        // --- 1. Process Data ---
-        const todayStr = new Date().toISOString().split('T')[0];
-        // For testing, if no data for today, use the last date in log
+        // Process Data
+        // Use local timezone for "today" to match log entries
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const todayStr = `${year}-${month}-${day}`;
+        const currentMonth = `${year}-${month}`;
+        
         const effectiveToday = todayStr;
 
         let todayCostUSD = 0;
@@ -428,8 +434,6 @@
         const monthFilter = document.getElementById('month-filter');
         const availableMonths = Object.keys(monthlyData).sort().reverse();
         
-        // Find current month (YYYY-MM)
-        const currentMonth = todayStr.substring(0, 7);
         let currentMonthExists = false;
 
         availableMonths.forEach(m => {
@@ -448,7 +452,7 @@
         const allOption = document.createElement('option');
         allOption.value = 'all';
         allOption.innerText = 'All Months';
-        // If current month doesn't exist in data yet, default to all or most recent
+        // If current month doesn't exist in data yet, default to the most recent month available
         if (!currentMonthExists) {
             if (availableMonths.length > 0) {
                 monthFilter.firstChild.selected = true;

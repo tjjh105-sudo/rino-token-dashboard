@@ -420,3 +420,4 @@
 | 2026-05-30 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | 系統自動維護重啟前紀錄 (Session Start) |
 | 2026-05-30 | 10:45 AM | google/gemini-3-flash-preview | 16000 | 263 | 16263 | 紀錄 6/3 資優鑑定初選公告行程 |
 | 2026-05-31 | 05:25 AM | Gemini 2.0 Flash | 0 | 0 | 0 | 系統自動維護重啟前紀錄 |
+| 2026-05-31 | 07:00 PM | Gemini 2.0 Flash | 16000 | 249 | 16249 | 週日記憶清理維護 |

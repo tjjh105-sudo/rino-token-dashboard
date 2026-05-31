@@ -436,6 +436,7 @@
             const option = document.createElement('option');
             option.value = m;
             option.innerText = m;
+            // Force select current month if it exists
             if (m === currentMonth) {
                 option.selected = true;
                 currentMonthExists = true;
@@ -447,7 +448,14 @@
         const allOption = document.createElement('option');
         allOption.value = 'all';
         allOption.innerText = 'All Months';
-        if (!currentMonthExists) allOption.selected = true;
+        // If current month doesn't exist in data yet, default to all or most recent
+        if (!currentMonthExists) {
+            if (availableMonths.length > 0) {
+                monthFilter.firstChild.selected = true;
+            } else {
+                allOption.selected = true;
+            }
+        }
         monthFilter.appendChild(allOption);
 
         // Initial chart with current filter

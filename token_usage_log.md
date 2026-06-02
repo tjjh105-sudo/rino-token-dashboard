@@ -425,3 +425,4 @@
 | 2026-06-01 | 12:03 PM | Gemini 3 Flash | 424000 | 1200 | 425200 | 登記 6/2 Gemini 研習討論 |
 | 2026-06-02 | 05:25 AM | Gemini 3 Flash | 0 | 0 | 0 | 系統維護重啟 (Bootstrap) |
 | 2026-06-02 | 05:30 AM | Gemini 3 Flash | 27500 | 230 | 27730 | Morning Routine (Cron) |
+| 2026-06-03 | 05:25 AM | Gemini 2.0 Flash | 0 | 0 | 0 | 系統維護重啟 (Bootstrap) |

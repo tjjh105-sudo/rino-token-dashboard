@@ -438,3 +438,4 @@
 | 2026-06-10 | 05:25 AM | Gemini 3 Flash Preview | 1548 | 210 | 1758 | 系統維護重啟 (Bootstrap) |
 | 2026-06-11 | 05:25 AM | Gemini 3 Flash | 1548 | 210 | 1758 | 系統自動維護重啟完成 (Bootstrap) |
 | 2026-06-12 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | Session Start (Bootstrap) |
+| 2026-06-13 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |

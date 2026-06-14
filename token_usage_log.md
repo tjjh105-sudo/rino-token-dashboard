@@ -441,3 +441,4 @@
 | 2026-06-13 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |
 | 2026-06-13 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |
 | 2026-06-14 | 05:25 AM | Gemini 3 Flash | 0 | 0 | 0 | Bootstrap (Gateway Restart) |
+| 2026-06-14 | 07:00 PM | Gemini 3 Flash | 34000 | 291 | 34291 | Weekly Memory Maintenance |

@@ -446,3 +446,4 @@
 | 2026-06-15 | 05:30 AM | google/gemini-3-flash-preview | 1200 | 250 | 1450 | Morning Routine |
 | 2026-06-16 | 05:30 AM | google/gemini-3-flash-preview | 27500 | 229 | 27729 | Morning Routine (Cron) |
 | 2026-06-16 | 07:51 AM | google/gemini-3-flash-preview | 63000 | 466 | 63466 | Bootstrap & Calendar Entry |
+| 2026-06-17 | 05:25 AM | google/gemini-3-flash-preview | 7606 | 134 | 7740 | log: token usage (session start) |

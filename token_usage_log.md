@@ -450,3 +450,4 @@
 | 2026-06-18 | 05:30 AM | google/gemini-3-flash-preview | 27500 | 253 | 27753 | daily maintenance & backup |
 | 2026-06-19 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |
 | 2026-06-20 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |
+| 2026-06-21 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: session start (bootstrap) |

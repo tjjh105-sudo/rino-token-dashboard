@@ -451,3 +451,4 @@
 | 2026-06-19 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |
 | 2026-06-20 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |
 | 2026-06-21 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: session start (bootstrap) |
+| 2026-06-21 | 07:00 PM | google/gemini-3-flash-preview | 16000 | 235 | 16235 | log: weekly memory maintenance start |

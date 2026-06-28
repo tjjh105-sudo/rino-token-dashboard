@@ -463,3 +463,4 @@
 | 2026-06-27 | 05:25 AM | Gemini 3 Flash | 0 | 0 | 0 | log: token usage (session start) |
 | 2026-06-28 | 05:25 AM | Gemini 3 Flash | 0 | 0 | 0 | log: token usage (session start - bootstrap) |
 | 2026-06-28 | 07:00 PM | Gemini 3 Flash | 17000 | 297 | 17297 | log: weekly memory maintenance start |
+| 2026-06-29 | 05:25 AM | Gemini 3 Flash | 2977 | 30 | 3007 | 系統自動維護重啟 (Bootstrap) |

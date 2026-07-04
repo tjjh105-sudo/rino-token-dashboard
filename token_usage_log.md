@@ -473,3 +473,4 @@
 | 2026-07-04 | 05:25 AM | Gemini 3 Flash | 0 | 0 | 0 | Bootstrap (Gateway Restart) |
 | 2026-07-04 | 05:33 AM | Gemini 3 Flash | 121300 | 330 | 121630 | Morning Routine (Cron) |
 | 2026-07-04 | 05:41 PM | Gemini 3 Flash | 48000 | 339 | 48339 | Weather Log Backfill |
+| 2026-07-05 | 05:25 AM | Gemini 3 Flash Preview | 0 | 0 | 0 | log: token usage (session start) |

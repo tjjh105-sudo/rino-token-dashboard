@@ -476,3 +476,4 @@
 | 2026-07-05 | 05:25 AM | Gemini 3 Flash Preview | 0 | 0 | 0 | log: token usage (session start) |
 | 2026-07-05 | 05:31 AM | Gemini 3 Flash Preview | 46200 | 495 | 46695 | log: daily routine sync (cron) |
 | 2026-07-05 | 05:49 AM | Gemini 3 Flash Preview | 19000 | 250 | 19250 | fix: weather dashboard sync |
+| 2026-07-05 | 07:00 PM | Gemini 3 Flash Preview | 90000 | 451 | 90451 | task: weekly memory cleanup (cron) |

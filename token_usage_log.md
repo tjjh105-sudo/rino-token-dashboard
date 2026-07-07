@@ -479,3 +479,4 @@
 | 2026-07-05 | 07:00 PM | Gemini 3 Flash Preview | 90000 | 451 | 90451 | task: weekly memory cleanup (cron) |
 | 2026-07-06 | 05:25 AM | Gemini 3 Flash Preview | 15000 | 192 | 15192 | log: token usage (session start) |
 | 2026-07-07 | 05:25 AM | google/gemini-3-flash-preview | 2587 | 374 | 2961 | 系統啟動與自動維護重啟 |
+| 2026-07-08 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |

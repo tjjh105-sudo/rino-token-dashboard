@@ -485,3 +485,4 @@
 | 2026-07-09 | 03:14 PM | google/gemini-3-flash-preview | 16000 | 245 | 16245 | add calendar: 115年度AI素養爭霸賽第2次縣市工作會議 |
 | 2026-07-09 | 03:20 PM | google/gemini-3-flash-preview | 102000 | 558 | 102558 | add calendar: 廍子國中EMS評選會議 |
 | 2026-07-10 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |
+| 2026-07-11 | 05:25 AM | Gemini 3 Flash Preview | 0 | 0 | 0 | Session Start (Bootstrap) |

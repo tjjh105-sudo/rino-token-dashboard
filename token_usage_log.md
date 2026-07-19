@@ -498,3 +498,4 @@
 | 2026-07-17 | 05:25 AM | Gemini 2.0 Flash (Exp) | 5,420 | 250 | 5,670 | [BOOTSTRAP] Daily Maintenance |
 | 2026-07-18 | 05:25 AM | google/gemini-3-flash-preview | 2800 | 200 | 3000 | 系統自動維護重啟 (Bootstrap) |
 | 2026-07-19 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |
+| 2026-07-20 | 07:55 AM | google/gemini-3-flash-preview | 67000 | 508 | 67508 | log: token usage (dashboard update) |

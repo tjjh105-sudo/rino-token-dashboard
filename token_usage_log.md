@@ -505,3 +505,4 @@
 | 2026-07-24 | 05:25 AM | gemini-3-flash-preview | 0 | 0 | 0 | Bootstrap (Restart) |
 | 2026-07-24 | 05:30 AM | gemini-3-flash-preview | 27500 | 224 | 27724 | Morning Routine (Cron) |
 | 2026-07-25 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |
+| 2026-07-26 | 05:25 AM | google/gemini-3-flash-preview | 2800 | 200 | 3000 | log: token usage (session start) |

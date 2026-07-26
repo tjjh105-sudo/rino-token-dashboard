@@ -507,3 +507,4 @@
 | 2026-07-25 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |
 | 2026-07-26 | 05:25 AM | google/gemini-3-flash-preview | 2800 | 200 | 3000 | log: token usage (session start) |
 | 2026-07-26 | 05:30 AM | google/gemini-3-flash-preview | 27500 | 300 | 27800 | log: morning routine (cron) |
+| 2026-07-26 | 07:00 PM | google/gemini-3-flash-preview | 83000 | 600 | 83600 | log: weekly cleanup trigger |

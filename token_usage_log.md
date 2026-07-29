@@ -513,3 +513,4 @@
 | 2026-07-28 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |
 | 2026-07-28 | 05:30 AM | google/gemini-3-flash-preview | 27500 | 225 | 27725 | log: token usage (Daily Backup & Run Reminder) |
 | 2026-07-29 | 05:25 AM | google/gemini-2.0-flash-exp | 0 | 0 | 0 | log: token usage (session start) |
+| 2026-07-30 | 05:25 AM | Gemini 2.0 Flash | 0 | 0 | 0 | Session Start (Maintenance) |

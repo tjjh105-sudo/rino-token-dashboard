@@ -516,3 +516,7 @@
 | 2026-07-30 | 05:25 AM | Gemini 2.0 Flash | 0 | 0 | 0 | Session Start (Maintenance) |
 | 2026-07-31 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |
 | 2026-07-31 | 05:30 AM | google/gemini-3-flash-preview | 27500 | 226 | 27726 | log: token usage (morning routine) |
+| 2026-08-01 | 05:25 AM | gemini-3-flash-preview |  |  |  | 系統自動維護重啟 (Bootstrap) |
+| 2026-08-01 | 05:25 AM | gemini-3-flash-preview | 4874 | 142 | 5016 | 系統自動維護重啟 (Bootstrap) |
+| 2026-08-01 | 05:30 AM | gemini-3-flash-preview | 27500 | 207 | 27707 | 晨間例行公事 (Cron) |
+| 2026-08-01 | 09:23 AM | gemini-3-flash-preview | 16000 | 278 | 16278 | 手動補登與重啟確認 |

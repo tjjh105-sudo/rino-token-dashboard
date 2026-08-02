@@ -521,3 +521,4 @@
 | 2026-08-01 | 05:30 AM | gemini-3-flash-preview | 27500 | 207 | 27707 | 晨間例行公事 (Cron) |
 | 2026-08-01 | 09:23 AM | gemini-3-flash-preview | 16000 | 278 | 16278 | 手動補登與重啟確認 |
 | 2026-08-02 | 05:25 AM | Gemini 3 Flash | 0 | 0 | 0 | log: token usage (session start) |
+| 2026-08-02 | 07:00 PM | Gemini 3 Flash | 16000 | 235 | 16235 | log: token usage (weekly cleanup start) |

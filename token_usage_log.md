@@ -528,3 +528,4 @@
 | 2026-08-04 | 09:22 AM | Gemini 3 Flash | 93000 | 491 | 93491 | 登記 8/21 資優學生IGP會議 |
 | 2026-08-05 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start - maintenance) |
 | 2026-08-05 | 05:30 AM | google/gemini-3-flash-preview | 27500 | 217 | 27717 | log: token usage (morning routine) |
+| 2026-08-06 | 05:25 AM | google/gemini-3-flash-preview | 11453 | 120 | 11573 | Gateway Restart (Daily) |

@@ -538,3 +538,4 @@
 | 2026-08-09 | 07:00 PM | google/gemini-3-flash-preview | 87000 | 564 | 87564 | Weekly Memory Cleanup Task |
 | 2026-08-10 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |
 | 2026-08-11 | 05:25 AM | Gemini 3 Flash | 0 | 0 | 0 | Gateway Restart (Bootstrap) |
+| 2026-08-12 | 05:25 AM | Gemini 2.0 Flash | 0 | 0 | 0 | log: token usage (session start) |

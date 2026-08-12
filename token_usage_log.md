@@ -540,3 +540,4 @@
 | 2026-08-11 | 05:25 AM | Gemini 3 Flash | 0 | 0 | 0 | Gateway Restart (Bootstrap) |
 | 2026-08-12 | 05:25 AM | Gemini 2.0 Flash | 0 | 0 | 0 | log: token usage (session start) |
 | 2026-08-12 | 05:30 AM | Gemini 2.0 Flash | 27500 | 208 | 27708 | log: morning routine (cron) |
+| 2026-08-13 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | bootstrap (gateway restart) |

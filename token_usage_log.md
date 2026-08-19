@@ -551,3 +551,57 @@
 | 2026-08-18 | 05:25 AM | google/gemini-3-flash-preview | 134000 | 550 | 134550 | Daily Maintenance Start |
 | 2026-08-18 | 05:30 AM | google/gemini-3-flash-preview | 27500 | 234 | 27734 | Morning Routine (Cron) |
 | 2026-08-19 | 05:25 AM | Gemini 2.0 Flash | 0 | 0 | 0 | 系統自動維護重啟前記錄 |
+▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+██░▄▄▄░██░▄▄░██░▄▄▄██░▀██░██░▄▄▀██░████░▄▄▀██░███░██
+██░███░██░▀▀░██░▄▄▄██░█░█░██░█████░████░▀▀░██░█░█░██
+██░▀▀▀░██░█████░▀▀▀██░██▄░██░▀▀▄██░▀▀░█░██░██▄▀▄▀▄██
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+                  🦞 OPENCLAW 🦞                    
+ 
+┌  OpenClaw doctor
+│
+◇  Session locks ──────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  - Found 1 session lock file.                                                │
+│  - ~/.openclaw/agents/main/sessions/dd118879-ce3c-4a53-85bf-d5b8e9272fa8.js  │
+│  onl.lock                                                                    │
+│    pid=83481 (alive) age=10s stale=no                                        │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────╯
+│
+◇  Security ─────────────────────────────────╮
+│                                            │
+│  - No channel security warnings detected.  │
+│  - Run: openclaw security audit --deep     │
+│                                            │
+├────────────────────────────────────────────╯
+│
+◇  Skills status ────────────╮
+│                            │
+│  Eligible: 6               │
+│  Missing requirements: 44  │
+│  Blocked by allowlist: 0   │
+│                            │
+├────────────────────────────╯
+│
+◇  Plugins ──────╮
+│                │
+│  Loaded: 5     │
+│  Disabled: 31  │
+│  Errors: 0     │
+│                │
+├────────────────╯
+Telegram: ok (@ws7_rinobot) (1862ms)
+Agents: main (default)
+Heartbeat interval: 30m (main)
+Session store (main): /Users/ws7/.openclaw/agents/main/sessions/sessions.json (5 entries)
+- agent:main:main (1435m ago)
+- agent:main:cron:7fd7a980-3adf-4ce6-bb77-c7c2b8e75883 (1435m ago)
+- agent:main:cron:7fd7a980-3adf-4ce6-bb77-c7c2b8e75883:run:b2d4e940-dd3b-4232-accc-b53b35dab5c7 (1435m ago)
+- agent:main:cron:1e033c0f-2a58-4bb0-b2ea-1a08b6d3b2af (240325m ago)
+- agent:main:cron:acf49bef-c7ed-4b9a-b003-3e5a4769d15e (258745m ago)
+Run "openclaw doctor --fix" to apply changes.
+│
+└  Doctor complete.
+
+| 2026-08-20 | 05:25 AM | Gemini 3 Flash | 0 | 0 | 0 | 系統重啟 (Bootstrap) |

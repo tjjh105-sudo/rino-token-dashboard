@@ -606,3 +606,4 @@ Run "openclaw doctor --fix" to apply changes.
 
 | 2026-08-20 | 05:25 AM | Gemini 3 Flash | 0 | 0 | 0 | 系統重啟 (Bootstrap) |
 | 2026-08-21 | 05:25 AM | Gemini-3-Flash | 0 | 0 | 0 | session start (auto-restart) |
+| 2026-08-22 | 05:25 AM | Gemini 3 Flash | 0 | 0 | 0 | log: token usage (session start) |

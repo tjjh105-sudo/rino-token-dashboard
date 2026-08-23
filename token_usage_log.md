@@ -616,3 +616,4 @@ Run "openclaw doctor --fix" to apply changes.
 | 2026-08-23 | 07:50 PM | google/gemini-3-flash-preview | 319000 | 1200 | 320200 | 回應系統整理細節 |
 | 2026-08-23 | 07:50 PM | google/gemini-3-flash-preview | 110000 | 691 | 110691 | 解釋回覆收回現象 |
 | 2026-08-23 | 07:52 PM | google/gemini-3-flash-preview | 115000 | 486 | 115486 | 修正回覆機制：停止使用 NO_REPLY |
+| 2026-08-24 | 05:25 AM | google/gemini-3-flash-preview | 0 | 0 | 0 | log: token usage (session start) |

@@ -630,3 +630,5 @@ Run "openclaw doctor --fix" to apply changes.
 | 2026-08-30 | 06:52 AM | google/gemini-3-flash-preview | 89000 | 252 | 89252 | HI (turn start & manual push check) |
 | 2026-08-31 | 05:30 AM | google/gemini-3-flash-preview | 27500 | 222 | 27722 | log: token usage (morning routine) |
 | 2026-08-31 | 06:59 AM | google/gemini-3-flash-preview | 98000 | 271 | 98271 | HI (turn start & dashboard verification) |
+| 2026-09-01 | 05:30 AM | google/gemini-3-flash-preview | 27500 | 222 | 27722 | log: token usage (morning routine) |
+| 2026-09-01 | 07:18 AM | google/gemini-3-flash-preview | 114000 | 252 | 114252 | HI (turn start & automation fix) |

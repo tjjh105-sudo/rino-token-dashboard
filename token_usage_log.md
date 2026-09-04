@@ -636,3 +636,6 @@ Run "openclaw doctor --fix" to apply changes.
 | 2026-09-01 | 12:41 PM | google/gemini-3-flash-preview | 640000 | 547 | 640547 | log: delete calendar event (資優班課程) |
 | 2026-09-02 | 05:30 AM | google/gemini-3-flash-preview | 27500 | 250 | 27750 | log: token usage (morning routine) |
 | 2026-09-02 | 06:41 AM | google/gemini-3-flash-preview | 111000 | 275 | 111275 | HI (turn start & automation check) |
+| 2026-09-03 | 05:30 AM | google/gemini-3-flash-preview | 27500 | 250 | 27750 | log: token usage (morning routine) |
+| 2026-09-04 | 05:30 AM | google/gemini-3-flash-preview | 27500 | 250 | 27750 | log: token usage (morning routine) |
+| 2026-09-04 | 08:07 AM | google/gemini-3-flash-preview | 118000 | 273 | 118273 | HI (turn start & manual push repair) |

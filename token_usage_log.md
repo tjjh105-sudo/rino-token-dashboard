@@ -721,3 +721,4 @@ Run "openclaw doctor --fix" to apply changes.
 | 2026-10-27 | 09:24 AM | google/gemini-3-flash-preview | 208000 | 303 | 208303 | log: add calendar event (10/28 特教生參訪) |
 | 2026-10-28 | 05:30 AM | google/gemini-3-flash-preview | 27500 | 250 | 27750 | log: token usage (morning routine) |
 | 2026-10-28 | 09:51 AM | google/gemini-3-flash-preview | 210000 | 330 | 210330 | HI (turn start & query status) |
+| 2026-10-29 | 05:30 AM | google/gemini-3-flash-preview | 27500 | 250 | 27750 | log: token usage (morning routine) |
